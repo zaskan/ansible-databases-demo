@@ -11,5 +11,5 @@
       path: "/home/oracle/.bash_profile"
     loop:
       - export ORACLE_SID=FREE
-      - export ORACLE_HOME=/opt/oracle/product/23c/dbhomeFree
+      - export ORACLE_HOME="{{ oracle_home }}"
       - export PATH=$PATH:$ORACLE_HOME/bin
