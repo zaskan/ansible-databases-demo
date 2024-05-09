@@ -1,0 +1,65 @@
+---
+  - name: Set hostname
+    ansible.builtin.hostname:
+      name: "{{ inventory_hostname }}"
+
+  - name: Add entry to hosts file
+    ansible.builtin.lineinfile:
+      line: "{{ ansible_host }} {{ inventory_hostname }}"
+      path: /etc/hosts
+
+  - name: Install dependencies
+    ansible.builtin.yum:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - bc
+      - bind-utils 
+      - compat-openssl10 
+      - glibc-devel
+      - initscripts
+      - ksh
+      - libaio
+      - libnsl
+      - make
+      - net-tools
+      - smartmontools
+      - sysstat
+      - unzip
+      - xorg-x11-utils
+      - xorg-x11-xauth
+      - git
+  
+  - name: Download Oracle Preinstallation Package
+    ansible.builtin.get_url:
+      url: "{{ preinstall_package_url }}"
+      dest: /tmp
+      mode: '0755' 
+    register: preinstallation_package
+
+  - name: Download Oracle Installation Package
+    ansible.builtin.get_url:
+      url: "{{ install_package_url }}"
+      dest: /tmp
+      mode: '0755' 
+    register: installation_package
+
+  - name: Install Oracle Preinstallation Package
+    ansible.builtin.yum:
+      name: "/tmp/{{ preinstallation_package }}"
+      state: present
+      disable_gpg_check: true
+
+  - name: Install Oracle Installation Package
+    ansible.builtin.yum:
+      name: "/tmp/{{ installation_package }}"
+      state: present
+      state: present
+      disable_gpg_check: true
+
+  - name: Set Initial Configuration for Oracle
+    ansible.builtin.shell:
+      cmd: "/etc/init.d/{{ installation_executable }} configure"
+    environment:
+      ORACLE_PASSWORD: "{{ oracle_password }}"
+    register: install_output

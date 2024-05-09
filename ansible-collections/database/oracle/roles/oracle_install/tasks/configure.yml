@@ -1,0 +1,15 @@
+---
+  - name: Copy Script
+    ansible.builtin.copy: 
+      src: files
+      dest: /tmp
+    become: false
+
+  - name: Add Oracle environment variables to Oracle user
+    ansible.builtin.lineinfile:
+      line: "{{ item }}"
+      path: "/home/oracle/.bash_profile"
+    loop:
+      - export ORACLE_SID=FREE
+      - export ORACLE_HOME=/opt/oracle/product/23c/dbhomeFree
+      - export PATH=$PATH:$ORACLE_HOME/bin

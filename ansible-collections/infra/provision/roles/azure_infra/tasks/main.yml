@@ -1,0 +1,42 @@
+---
+  - name: Create virtual network
+    azure_rm_virtualnetwork:
+      resource_group: "{{ resource_group }}"
+      name: "{{ project_name }}"
+      address_prefixes: "{{ virtual_network_prefix }}" # Example: 10.0.0.0/16
+
+  - name: Add subnet
+    azure_rm_subnet:
+      resource_group: "{{ resource_group }}"
+      name: "{{ project_name }}"
+      address_prefix: "{{ subnet_prefix }}" # Example: 10.0.1.0/24
+      virtual_network: "{{ vm_name }}"
+
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: "{{ resource_group }}"
+      allocation_method: Static
+      name: "{{ project_name }}"
+
+  - name: Create Network Security Group that allows different ports
+    azure_rm_securitygroup:
+      resource_group: "{{ resource_group }}"
+      name: "{{ project_name }}"
+      rules:
+        - name: "{{ item }}"
+          protocol: Tcp
+          destination_port_range: "{{ item }}"
+          access: Allow
+          priority: 1001
+          direction: Inbound
+    loop: "{{ ports }}"
+
+  - name: Create virtual network interface card
+    azure_rm_networkinterface:
+      resource_group: "{{ resource_group }}"
+      name: "{{ project_name }}"
+      virtual_network: "{{ project_name }}"
+      subnet: "{{ project_name }}"
+      public_ip_name: "{{ project_name }}"
+      security_group: "{{ project_name }}"
+

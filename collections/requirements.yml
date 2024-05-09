@@ -1,0 +1,28 @@
+---
+collections:
+  - name: azure.azcollection
+    version: 1.11.0
+    source: https://galaxy.ansible.com
+
+  - name: ansible.windows
+    version: 1.9.0
+    source: https://galaxy.ansible.com
+
+  - name: community.windows
+    version: 1.9.0
+    source: https://galaxy.ansible.com
+
+  - name: chocolatey.chocolatey
+    version: 1.2.0
+    source: https://galaxy.ansible.com
+
+  - name: community.general
+    version: 4.8.0
+    source: https://galaxy.ansible.com
+
+  - name: ansible_ssa.windows
+    type: git
+    source: "https://gitlab.com/ansible-ssa/collection-ansible_ssa-windows.git#/ansible_ssa/"
+
+  - name: ibre5041.ansible_oracle_modules
+    version: 3.2.1
