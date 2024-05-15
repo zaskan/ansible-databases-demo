@@ -13,9 +13,9 @@
       - 5986
     vm_name: test-01
     vm_size: Standard_DS1_v2
-    username: root
+    username: redhat
     ssh_public_keys: 
-      - path: "/root/.ssh/authorized_keys"
+      - path: "/home/redhat/.ssh/authorized_keys"
         key_data: "{{ lookup('ansible.builtin.env', 'PUBLIC_KEY') }}"
     image:
     offer: UbuntuServer
