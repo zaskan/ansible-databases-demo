@@ -145,13 +145,13 @@
         description: "{{ item.desc }}"
         organization: "{{ item.org }}"
         credential_type: "{{ item.type }}"
-        update_secrets: false
+        update_secrets: true
         inputs: "{{ item.inputs }}"
         state: present
       loop: "{{ scm_credentials }}"
       when:
         - lookup('file', 'vars/credentials.yml', errors='ignore') is not none
-      no_log: false
+      no_log: true
 
     - name: Create SCM Projects
       ansible.controller.project:
