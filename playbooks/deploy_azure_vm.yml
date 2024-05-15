@@ -5,9 +5,10 @@
   tasks:
 
     - name: Deploy Azure Network
-      infrastructure.provision.azure_infra:
-        name: 
+      ansible.builtin.import_role:
+        name: infrastructure.provision.azure_infra
+
 
     - name: Deploy Azure Visrtual Machine
-      infrastructure.provision.azure_vm:
-        name: 
+      ansible.builtin.import_role:
+        name: infrastructure.provision.azure_vm
