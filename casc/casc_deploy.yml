@@ -4,17 +4,45 @@
   gather_facts: false
 
   environment:
- 
+
     CONTROLLER_HOST: "{{ aap_host }}"
     CONTROLLER_USERNAME: "{{ aap_user }}"
     CONTROLLER_PASSWORD: "{{ aap_pass }}"
     CONTROLLER_VERIFY_SSL: "false"
+    AH_HOST: "{{ hub_host }}"
+    AH_USERNAME: "{{ hub_user }}"
+    AH_PASSWORD: "{{ hub_pass }}"
+    AH_VERIFY_SSL: "false"
 
   tasks:
 
     - name: Include vars
       ansible.builtin.include_vars:
         dir: vars
+
+    - name: Build Collections
+      infra.ah_configuration.ah_build:
+        path: "{{ item.path }}"
+        force: true
+        output_path: /tmp
+      loop: "{{ ah_collections }}"
+      when:
+        - lookup('file', 'vars/collections.yml', errors='ignore') is not none
+
+    - name: Upload collections to automation hub
+      infra.ah_configuration.ah_collection_upload:
+        path: "/tmp/{{ item.namespace }}-{{ item.name }}-{{ item.version }}.tar.gz"
+      when:
+        - lookup('file', 'vars/collections.yml', errors='ignore') is not none
+
+    - name: Approve Collections
+      infra.ah_configuration.ah_approval:
+        namespace: "{{ item.namespace }}"
+        name: "{{ item.name }}"
+        version: "{{ item.version }}"
+      loop: "{{ ah_collections }}"
+      when:
+        - lookup('file', 'vars/collections.yml', errors='ignore') is not none
 
     - name: Create AAP organizations
       ansible.controller.organization:

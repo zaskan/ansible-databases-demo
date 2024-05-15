@@ -1,0 +1,15 @@
+ah_collections:
+  - name: oracle
+    namespace: database
+    version: 1.0.0
+    path: ../ansible-collections/database/oracle
+
+  - name: sqlserver
+    namespace: database
+    version: 1.0.0
+    path: ../ansible-collections/database/sqlserver
+
+  - name: provision
+    namespace: infra
+    version: 1.0.0
+    path: ../ansible-collections/infra/provision
