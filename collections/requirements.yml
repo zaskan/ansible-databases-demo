@@ -25,6 +25,7 @@ collections:
     source: "https://gitlab.com/ansible-ssa/collection-ansible_ssa-windows.git#/ansible_ssa/"
 
   - name: ibre5041.ansible_oracle_modules
+    source: https://galaxy.ansible.com
     version: 3.2.1
 
   - name: containers.podman
