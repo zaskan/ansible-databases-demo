@@ -1,0 +1,89 @@
+---
+python_interpreter: "{% raw %}{{ ansible_playbook_python }}{% endraw %}"
+
+organizations: []
+
+teams: []
+
+users: []
+
+admin_users: []
+
+auditor_users: []
+
+
+
+
+
+hosts:
+  - name: localhost
+    desc: ""
+    inv: "Automation Controller Inventory"
+    vars: { "ansible_connection": "local", "ansible_python_interpreter": "{% raw %}{{ python_interpreter }}{% endraw %}" }
+
+execution_enviroment:
+  - name: "{{ aap_ee_name }}"
+    desc: "{{ aap_ee_image }}"
+
+
+
+
+
+
+
+
+
+
+
+scm_jobtemplates_survey: []
+
+scm_workflowjobtemplates_survey:
+  - name: "[WF] Deploy VMware Virtual Machine"
+    org: Default
+    inv: ""
+    ask_variables_on_launch: false
+    survey_enabled: true
+    survey_spec: "{{ lookup('ansible.builtin.template', './surveys/deploy_vmware_virtual_machine.j2') }}"
+    steps:
+       - identifier: Provision Virtual machine
+         unified_job_template:
+           organization:
+             name: Default
+           name: "[JT] Provision Virtual Machine"
+           type: job_template
+         credentials: []
+         related:
+           success_nodes:
+             - identifier: "Bastion Virtual Machine"
+           failure_nodes: []
+           always_nodes: []
+           credentials: []
+       - identifier: Bastion Virtual Machine
+         unified_job_template:
+           organization:
+             name: Default
+           name: "[JT] Bastion Virtual Machine"
+           type: job_template
+         credentials: []
+         related:
+           success_nodes:
+             - identifier: "Install Software"
+           failure_nodes: []
+           always_nodes: []
+           credentials: []
+       - identifier: Install Software
+         unified_job_template:
+           organization:
+             name: Default
+           name: "[JT] Install Software"
+           type: job_template
+         credentials: []
+         related:
+           success_nodes: []
+           failure_nodes: []
+           always_nodes: []
+           credentials: []
+
+scm_workflowjobtemplates_webhook: []
+
+scm_workflowjobtemplates: []

@@ -1,0 +1,26 @@
+{
+    "fields": [
+      {
+        "id": "hub_host",
+        "type": "string",
+        "label": "Automation Hub Host"
+      },
+      {
+        "id": "hub_user",
+        "type": "string",
+        "label": "Automation Hub Username"
+      },
+      {
+        "id": "hub_pass",
+        "type": "string",
+        "label": "Automation Hub Password",
+        "secret": true
+      }
+    ],
+    "required": [
+      "hub_host",
+      "hub_user",
+      "hub_pass"
+    ]
+  }
+  

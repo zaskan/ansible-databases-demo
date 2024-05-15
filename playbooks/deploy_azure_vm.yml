@@ -1,0 +1,13 @@
+---
+- name: Deploy Azure Virtual Machine
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+    - name: Deploy Azure Network
+      infra.provision.azure_infra:
+        name: 
+
+    - name: Deploy Azure Visrtual Machine
+      infra.provision.azure_vm:
+        name: 

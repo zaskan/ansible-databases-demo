@@ -1,0 +1,11 @@
+scm_jobtemplates:
+  - name: "[JT] Deploy Virtual Machine"
+    org: Default
+    inv: "Automation Controller Inventory"
+    project: "Ansible Databases Demo Project"
+    playbook: "deploy_azure_vm.yml"
+    creds: 
+      - "RHEL Managed Hosts Credential" 
+    ask_variables_on_launch: no
+    allow_simultaneous: no
+    execution_environment: "Azure Execution Environment"

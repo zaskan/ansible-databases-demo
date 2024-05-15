@@ -1,0 +1,7 @@
+{
+    "env": {
+      "HUB_HOST": "{{ hub_host }}",
+      "HUB_PASSWORD": "{{ hub_pass }}",
+      "HUB_USERNAME": "{{ hub_user }}"
+    }
+  }

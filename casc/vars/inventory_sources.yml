@@ -1,0 +1,7 @@
+inventory_sources:
+   - name: "Microsoft Azure Source"
+     desc: "Microsoft Azure Source"
+     org: Default
+     source: "azure_rm"
+     credential: "Microsoft Azure Credential"
+     inventory: "Microsoft Azure"

@@ -1,0 +1,8 @@
+inventories: 
+  - name: "Microsoft Azure"
+    desc: "Microsoft Azure"
+    org: Default
+
+  - name: "Automation Controller Inventory"
+    desc: "Automation Controller Inventory"
+    org: Default
