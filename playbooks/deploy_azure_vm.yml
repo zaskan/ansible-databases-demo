@@ -4,6 +4,7 @@
   gather_facts: false
   vars:
     project_name: databasedemo
+    os_type: linux
     virtual_network_prefix: 10.0.0.0/16
     subnet_prefix: 10.0.1.0/24
     location: "West Europe"
@@ -14,6 +15,7 @@
     vm_name: test-01
     vm_size: Standard_DS1_v2
     username: redhat
+    ssh_password_enabled: false
     ssh_public_keys: 
       - path: "/home/redhat/.ssh/authorized_keys"
         key_data: "{{ lookup('ansible.builtin.env', 'PUBLIC_KEY') }}"

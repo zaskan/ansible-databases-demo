@@ -8,6 +8,8 @@
       admin_password: "{{ password | default(omit) }}"
       network_interfaces: "{{ vm_name }}"
       ssh_public_keys: "{{ ssh_public_keys | default(omit) }}"
+      os_type: "{{ os_type | default(omit) | default(omit) }}"
+      ssh_password_enabled: "{{ ssh_password_enabled }}"
       image:
         offer: "{{ offer }}" # Example: UbuntuServer
         publisher: "{{ publisher }}" # Example: Canonical
