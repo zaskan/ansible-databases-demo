@@ -12,7 +12,10 @@
         virtual_network_prefix: 10.0.0.0/16
         subnet_prefix: 10.0.1.0/24
         location: "West Europe"
-        ports: "22"
+        ports:
+          - 22
+          - 5985
+          - 5986
 
 #    - name: Deploy Azure Virtual Machine
 #      ansible.builtin.import_role:
