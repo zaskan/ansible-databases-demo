@@ -14,7 +14,7 @@
       resource_group: "{{ resource_group }}"
       name: "{{ project_name }}"
       address_prefix: "{{ subnet_prefix }}" # Example: 10.0.1.0/24
-      virtual_network: "{{ vm_name }}"
+      virtual_network: "{{ project_name }}"
 
   - name: Create public IP address
     azure_rm_publicipaddress:

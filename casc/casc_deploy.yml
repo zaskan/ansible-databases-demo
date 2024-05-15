@@ -60,6 +60,11 @@
       when:
         - lookup('file', 'vars/collections.yml', errors='ignore') is not none
 
+    - name: Create a new Automation Hub token
+      infra.ah_configuration.ah_token:
+        state: present
+      register: ah_token
+
     - name: Create AAP organizations
       ansible.controller.organization:
         name: "{{ item.name }}"
@@ -146,7 +151,7 @@
       loop: "{{ scm_credentials }}"
       when:
         - lookup('file', 'vars/credentials.yml', errors='ignore') is not none
-      no_log: true
+      no_log: false
 
     - name: Create SCM Projects
       ansible.controller.project:
