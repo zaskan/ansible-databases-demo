@@ -33,5 +33,7 @@ collections:
     source: https://galaxy.ansible.com
 
   - name: infrastructure.provision
+    version: 1.0.0
 
   - name: database.oracle
+    version: 1.0.0
