@@ -5,9 +5,9 @@
   tasks:
 
     - name: Deploy Azure Network
-      infra.provision.azure_infra:
+      infrastructure.provision.azure_infra:
         name: 
 
     - name: Deploy Azure Visrtual Machine
-      infra.provision.azure_vm:
+      infrastructure.provision.azure_vm:
         name: 

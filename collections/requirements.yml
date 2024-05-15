@@ -26,3 +26,11 @@ collections:
 
   - name: ibre5041.ansible_oracle_modules
     version: 3.2.1
+
+  - name: containers.podman
+    version: 1.13.0
+    source: https://galaxy.ansible.com
+
+  - name: infrastructure.provision
+
+  - name: database.oracle

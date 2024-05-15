@@ -5,11 +5,11 @@
 
   environment:
 
-    CONTROLLER_HOST: "{{ aap_host }}"
+    CONTROLLER_HOST: "https://{{ aap_host }}"
     CONTROLLER_USERNAME: "{{ aap_user }}"
     CONTROLLER_PASSWORD: "{{ aap_pass }}"
     CONTROLLER_VERIFY_SSL: "false"
-    AH_HOST: "{{ hub_host }}"
+    AH_HOST: "https://{{ hub_host }}"
     AH_USERNAME: "{{ hub_user }}"
     AH_PASSWORD: "{{ hub_pass }}"
     AH_VERIFY_SSL: "false"
@@ -22,18 +22,34 @@
 
     - name: Build Collections
       infra.ah_configuration.ah_build:
-        path: "{{ item.path }}"
+        path: "{{ item.source }}"
         force: true
         output_path: /tmp
       loop: "{{ ah_collections }}"
       when:
         - lookup('file', 'vars/collections.yml', errors='ignore') is not none
 
-    - name: Upload collections to automation hub
-      infra.ah_configuration.ah_collection_upload:
-        path: "/tmp/{{ item.namespace }}-{{ item.name }}-{{ item.version }}.tar.gz"
+    - name: Create Automation Hub Collection Namespaces
+      infra.ah_configuration.ah_namespace:
+        name: "{{ item.namespace }}"
+        state: present
+      loop: "{{ ah_collections }}"
       when:
         - lookup('file', 'vars/collections.yml', errors='ignore') is not none
+
+    - name: Upload collections to Automation Hub
+      infra.ah_configuration.ah_collection:
+        namespace: "{{ item.namespace }}"
+        name: "{{ item.name }}"
+        path: "/tmp/{{ item.namespace }}-{{ item.name }}-{{ item.version }}.tar.gz"
+        state: present
+        overwrite_existing: true
+        version: "{{ item.version }}"
+      loop: "{{ ah_collections }}"
+      when:
+        - lookup('file', 'vars/collections.yml', errors='ignore') is not none
+      retries: 5
+      delay: 5
 
     - name: Approve Collections
       infra.ah_configuration.ah_approval:
