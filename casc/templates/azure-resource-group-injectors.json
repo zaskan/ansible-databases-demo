@@ -1,0 +1,6 @@
+{
+    "env": {
+      "AZURE_RESOURCE_GROUP": "{{ azure_resource_group }}"
+    }
+  }
+  

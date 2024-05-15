@@ -1,0 +1,13 @@
+{
+    "fields": [
+      {
+        "id": "azure_resource_group",
+        "type": "string",
+        "label": "Azure Resource Group"
+      }
+    ],
+    "required": [
+      "azure_resource_group"
+    ]
+  }
+  

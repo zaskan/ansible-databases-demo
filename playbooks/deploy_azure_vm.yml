@@ -8,7 +8,6 @@
       ansible.builtin.import_role:
         name: infrastructure.provision.azure_infra
 
-
-    - name: Deploy Azure Visrtual Machine
+    - name: Deploy Azure Virtual Machine
       ansible.builtin.import_role:
         name: infrastructure.provision.azure_vm

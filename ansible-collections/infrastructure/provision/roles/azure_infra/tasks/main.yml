@@ -1,4 +1,8 @@
 ---
+  - name: Get Resource Group
+    set_fact:
+      resource_group: "{{ lookup('ansible.builtin.env', 'AZURE_RESOURCE_GROUP') }}"
+
   - name: Create virtual network
     azure_rm_virtualnetwork:
       resource_group: "{{ resource_group }}"
@@ -39,4 +43,3 @@
       subnet: "{{ project_name }}"
       public_ip_name: "{{ project_name }}"
       security_group: "{{ project_name }}"
-

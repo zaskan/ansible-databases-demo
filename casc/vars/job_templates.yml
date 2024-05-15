@@ -5,7 +5,9 @@ scm_jobtemplates:
     project: "Ansible Databases Demo Project"
     playbook: "playbooks/deploy_azure_vm.yml"
     creds: 
-      - "RHEL Managed Hosts Credential" 
+      - "RHEL Managed Hosts Credential"
+      - "Microsoft Azure Credential"
+      - "Microsoft Azure Resource Group"
     ask_variables_on_launch: no
     allow_simultaneous: no
     execution_environment: "Azure Execution Environment"
