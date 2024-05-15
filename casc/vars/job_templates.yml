@@ -3,7 +3,7 @@ scm_jobtemplates:
     org: Default
     inv: "Automation Controller Inventory"
     project: "Ansible Databases Demo Project"
-    playbook: "deploy_azure_vm.yml"
+    playbook: "playbooks/deploy_azure_vm.yml"
     creds: 
       - "RHEL Managed Hosts Credential" 
     ask_variables_on_launch: no
