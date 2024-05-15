@@ -1,5 +1,12 @@
 ---
 collections:
+
+  - name: infrastructure.provision
+    version: 1.0.0
+
+  - name: database.oracle
+    version: 1.0.0
+    
   - name: azure.azcollection
     version: 1.11.0
     source: https://galaxy.ansible.com
@@ -31,9 +38,3 @@ collections:
   - name: containers.podman
     version: 1.13.0
     source: https://galaxy.ansible.com
-
-  - name: infrastructure.provision
-    version: 1.0.0
-
-  - name: database.oracle
-    version: 1.0.0
