@@ -2,21 +2,36 @@
 - name: Deploy Azure Virtual Machine
   hosts: localhost
   gather_facts: false
+  vars:
+    project_name: databasedemo
+    virtual_network_prefix: 10.0.0.0/16
+    subnet_prefix: 10.0.1.0/24
+    location: "West Europe"
+    ports:
+      - 22
+      - 5985
+      - 5986
+    vm_name:
+    vm_size: Standard_DS1_v2
+    username: test
+    ssh_public_keys: 
+      - path: "/root/.ssh/authorized_keys"
+        key_data: "{{ lookup('ansible.builtin.env', 'PUBLIC_KEY') }}"
+    image:
+    offer: UbuntuServer
+    publisher: Canonical
+    sku: 16.04-LTS
+    version: latest
+    
   tasks:
 
     - name: Deploy Azure Network
       ansible.builtin.import_role:
         name: infrastructure.provision.azure_infra
       vars:
-        project_name: databasedemo
-        virtual_network_prefix: 10.0.0.0/16
-        subnet_prefix: 10.0.1.0/24
-        location: "West Europe"
-        ports:
-          - 22
-          - 5985
-          - 5986
 
-#    - name: Deploy Azure Virtual Machine
-#      ansible.builtin.import_role:
-#        name: infrastructure.provision.azure_vm
+
+    - name: Deploy Azure Virtual Machine
+      ansible.builtin.import_role:
+        name: infrastructure.provision.azure_vm
+      vars:

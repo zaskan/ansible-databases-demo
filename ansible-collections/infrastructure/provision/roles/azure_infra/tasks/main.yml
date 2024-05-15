@@ -40,7 +40,7 @@
   - name: Create virtual network interface card
     azure_rm_networkinterface:
       resource_group: "{{ resource_group }}"
-      name: "{{ project_name }}"
+      name: "{{ vm_name }}"
       virtual_network: "{{ project_name }}"
       subnet: "{{ project_name }}"
       public_ip_name: "{{ project_name }}"

@@ -8,6 +8,7 @@ scm_jobtemplates:
       - "RHEL Managed Hosts Credential"
       - "Microsoft Azure Credential"
       - "Microsoft Azure Resource Group"
+      - "SSH Public Key"
     ask_variables_on_launch: no
     allow_simultaneous: no
     execution_environment: "Azure Execution Environment"

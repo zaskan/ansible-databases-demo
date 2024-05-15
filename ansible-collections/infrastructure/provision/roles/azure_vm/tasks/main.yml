@@ -5,8 +5,9 @@
       name: "{{ vm_name }}"
       vm_size: "{{ vm_size }}" # Example: Standard_DS1_v2
       admin_username: "{{ username }}"
-      admin_password: "{{ password }}"
+      admin_password: "{{ password | default(omit) }}"
       network_interfaces: "{{ vm_name }}"
+      ssh_public_keys: "{{ ssh_public_keys | default(omit) }}"
       image:
         offer: "{{ offer }}" # Example: UbuntuServer
         publisher: "{{ publisher }}" # Example: Canonical

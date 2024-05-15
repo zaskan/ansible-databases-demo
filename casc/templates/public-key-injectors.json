@@ -1,0 +1,6 @@
+{
+    "env": {
+      "PUBLIC_KEY": "{{ public_key }}"
+    }
+  }
+  
