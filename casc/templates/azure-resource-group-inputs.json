@@ -3,7 +3,8 @@
       {
         "id": "azure_resource_group",
         "type": "string",
-        "label": "Azure Resource Group"
+        "label": "Azure Resource Group",
+        "secret": true
       }
     ],
     "required": [
