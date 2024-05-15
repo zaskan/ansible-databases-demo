@@ -4,7 +4,7 @@
   gather_facts: false
   vars:
     project_name: databasedemo
-    os_type: linux
+    os_type: Linux
     virtual_network_prefix: 10.0.0.0/16
     subnet_prefix: 10.0.1.0/24
     location: "West Europe"
