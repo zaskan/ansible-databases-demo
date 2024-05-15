@@ -11,7 +11,7 @@
       - 22
       - 5985
       - 5986
-    vm_name:
+    vm_name: test-01
     vm_size: Standard_DS1_v2
     username: test
     ssh_public_keys: 
