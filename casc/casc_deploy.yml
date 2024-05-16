@@ -190,8 +190,9 @@
         state: present
         inventory: "{{ item.inventory }}"
         source: "{{ item.source }}"
-        source_path: "{{ item.source_path | default(omit) }}"
+        source_path: "{{ item.source_path | default(omit) }}"       
         source_project: "{{ item.project | default(omit) }}"
+        source_vars: "{{ item.vars | default(omit) }}"
         credential: "{{ item.credential | default(omit) }}"
       loop: "{{ inventory_sources }}"
       when:
