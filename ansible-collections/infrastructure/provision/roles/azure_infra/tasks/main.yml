@@ -37,11 +37,3 @@
     loop_control:
       index_var: idx
 
-  - name: Create virtual network interface card
-    azure_rm_networkinterface:
-      resource_group: "{{ resource_group }}"
-      name: "{{ vm_name }}"
-      virtual_network: "{{ project_name }}"
-      subnet: "{{ project_name }}"
-      public_ip_name: "{{ project_name }}"
-      security_group: "{{ project_name }}"

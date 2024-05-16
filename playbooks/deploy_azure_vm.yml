@@ -1,39 +1,17 @@
 ---
-- name: Deploy Azure Virtual Machine
+- name: Deploy Database Virtual Machine
   hosts: localhost
   gather_facts: false
-  vars:
-    project_name: databasedemo
-    os_type: Linux
-    virtual_network_prefix: 10.0.0.0/16
-    subnet_prefix: 10.0.1.0/24
-    location: "West Europe"
-    ports:
-      - 22
-      - 5985
-      - 5986
-    vm_name: test-01
-    vm_size: Standard_DS1_v2
-    username: redhat
-    ssh_password_enabled: false
-    ssh_public_keys: 
-      - path: "/home/redhat/.ssh/authorized_keys"
-        key_data: "{{ lookup('ansible.builtin.env', 'PUBLIC_KEY') }}"
-    image:
-    offer: "RHEL"
-    publisher: "RedHat"
-    sku: "9_4"
-    version: "9.3.2024050617"
-    
   tasks:
 
     - name: Deploy Azure Network
       ansible.builtin.import_role:
         name: infrastructure.provision.azure_infra
-      vars:
-
 
     - name: Deploy Azure Virtual Machine
       ansible.builtin.import_role:
         name: infrastructure.provision.azure_vm
       vars:
+        os_type: Linux
+        vm_name: test-01
+        vm_size: Standard_DS1_v2

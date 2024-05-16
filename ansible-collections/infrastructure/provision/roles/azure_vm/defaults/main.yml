@@ -1,2 +1,14 @@
 ---
 # defaults file for azure_vm
+    os_type: Linux
+    location: "West Europe"
+    username: redhat
+    ssh_password_enabled: false
+    ssh_public_keys: 
+      - path: "/home/redhat/.ssh/authorized_keys"
+        key_data: "{{ lookup('ansible.builtin.env', 'PUBLIC_KEY') }}"
+    image:
+    offer: "RHEL"
+    publisher: "RedHat"
+    sku: "9_4"
+    version: "9.3.2024050617"

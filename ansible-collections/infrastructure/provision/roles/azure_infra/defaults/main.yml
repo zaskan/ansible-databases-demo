@@ -1,2 +1,7 @@
 ---
 # defaults file for azure_infra
+    project_name: databasedemo
+    virtual_network_prefix: 10.0.0.0/16
+    subnet_prefix: 10.0.1.0/24
+    ports:
+      - 22
