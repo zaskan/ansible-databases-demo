@@ -1,0 +1,6 @@
+---
+- name: Configure Oracle Virtual Machine
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - role: infrastructure.provision.azure_disk_resize

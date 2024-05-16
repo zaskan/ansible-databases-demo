@@ -1,0 +1,26 @@
+---
+# tasks file for azure_disk_resize
+
+  - name: Resize partitions
+    community.general.lvol:
+      vg: rootvg
+      lv: "{{ item }}"
+      size: +20%FREE
+    loop:
+      - rootvg-tmplv
+      - rootvg-usrlv
+      - rootvg-homelv
+      - rootvg-varlv
+      - rootvg-rootlv
+
+  - name: Create a filesystem on top of a regular file
+    community.general.filesystem:
+      dev: "/dev/rootvg/{{ item }}"
+      fstype: xfs
+      resizefs: true
+    loop:
+      - tmplv
+      - usrlv
+      - homelv
+      - varlv
+      - rootlv

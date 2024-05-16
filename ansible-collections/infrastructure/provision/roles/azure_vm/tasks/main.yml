@@ -32,3 +32,8 @@
     ansible.controller.inventory_source_update:
       name: "{{ inventory_source_name }}"
       inventory: "{{ inventory_name }}"
+
+  - name: Add host
+    ansible.builtin.add_host:
+      name: "{{ vm_name }}"
+
