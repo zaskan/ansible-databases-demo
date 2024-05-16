@@ -7,7 +7,7 @@
       subnet: "{{ project_name }}"
       public_ip_name: "{{ project_name }}"
       security_group: "{{ project_name }}"
-      
+
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: "{{ resource_group }}"
@@ -24,3 +24,9 @@
         publisher: "{{ publisher }}" # Example: Canonical
         sku: "{{ sku }}" # Example: 16.04-LTS
         version: "{{ version }}" # Example: latest
+
+  - name: Update a single inventory source
+    inventory_source_update:
+      name: "{{ inventory_source_name }}"
+      inventory: "{{ inventory_name }}"
+      organization: "{{ inventory_organization }}"

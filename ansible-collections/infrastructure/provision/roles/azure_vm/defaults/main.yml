@@ -12,3 +12,6 @@
     publisher: "RedHat"
     sku: "9_4"
     version: "9.3.2024050617"
+    inventory_source_name: "Microsoft Azure Source"
+    inventory_name: "Microsoft Azure"
+    inventory_organization: Default

@@ -4,8 +4,8 @@ scm_jobtemplates:
     inv: "Automation Controller Inventory"
     project: "Ansible Databases Demo Project"
     playbook: "playbooks/deploy_azure_vm.yml"
-    creds: 
-      - "RHEL Managed Hosts Credential"
+    creds:
+      - "Red Hat Ansible Automation Platform Credential"
       - "Microsoft Azure Credential"
       - "Microsoft Azure Resource Group"
       - "SSH Public Key"
