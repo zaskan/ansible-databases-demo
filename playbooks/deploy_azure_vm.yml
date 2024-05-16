@@ -1,21 +1,12 @@
 ---
-- name: Deploy Database Virtual Machine
+- name: Deploy Oracle Virtual Machine
   hosts: localhost
   gather_facts: false
-  tasks:
-
-    - name: Deploy Azure Network
-      ansible.builtin.import_role:
-        name: infrastructure.provision.azure_infra
-
-    - name: Deploy Azure Virtual Machine
-      ansible.builtin.import_role:
-        name: infrastructure.provision.azure_vm
+  roles:
+    - role: infrastructure.provision.azure_infra
+    - role: infrastructure.provision.azure_vm
       vars:
         os_type: Linux
         vm_name: Oracle-01
         vm_size: Standard_DS1_v2
-
-    - name: Install Oracle
-      ansible.builtin.import_role:
-        name: database.oracle.oracle_install
+    - role: database.oracle.oracle_install
