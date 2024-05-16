@@ -1,0 +1,33 @@
+scm_workflowjobtemplates:
+  - name: "[WF] Deploy Oracle Server"
+    org: "{{ default_organization | default('Default') }}"
+    inv: ""
+    ask_variables_on_launch: true
+    ask_limit_on_launch: true
+    allow_simultaneous: true
+    steps:
+       - identifier: Provision Infrastructure
+         unified_job_template:
+           organization:
+             name: "{{ default_organization | default('Default') }}"
+           name: "[JT] Deploy Virtual Machine"
+           type: job_template
+         credentials: []
+         related:
+           success_nodes:
+             - identifier: "Install Oracle Software"
+           failure_nodes: []
+           always_nodes: []
+           credentials: []
+       - identifier: Install Oracle Software
+         unified_job_template:
+           organization:
+             name: "{{ default_organization | default('Default') }}"
+           name: "[JT] Deploy Oracle"
+           type: job_template
+         credentials: []
+         related:
+           success_nodes:
+           failure_nodes: []
+           always_nodes: []
+           credentials: []

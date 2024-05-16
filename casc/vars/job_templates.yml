@@ -12,3 +12,13 @@ scm_jobtemplates:
     ask_variables_on_launch: no
     allow_simultaneous: no
     execution_environment: "Azure Execution Environment"
+  - name: "[JT] Deploy Oracle"
+    org: "{{ default_organization | default('Default') }}"
+    inv: "Microsoft Azure"
+    project: "Ansible Databases Demo Project"
+    playbook: "playbooks/deploy_oracle.yml"
+    creds:
+      - "SSH Public Key"
+    ask_variables_on_launch: no
+    allow_simultaneous: no
+    execution_environment: "Azure Execution Environment"
