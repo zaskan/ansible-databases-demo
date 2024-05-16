@@ -1,6 +1,6 @@
 organizations:
-  name: databasedemo
-  desc: "Organization created for the database demo"
-  creds:
-    - "Automation Hub Api Token for Published repository"
-    - "Automation Hub Api Token for Red Hat Certified repository"
+  - name: databasedemo
+    desc: "Organization created for the database demo"
+    creds:
+      - "Automation Hub Api Token for Published repository"
+      - "Automation Hub Api Token for Red Hat Certified repository"
