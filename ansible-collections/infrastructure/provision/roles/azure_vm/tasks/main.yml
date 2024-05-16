@@ -26,7 +26,7 @@
         version: "{{ version }}" # Example: latest
 
   - name: Update Inventory Source
-    inventory_source_update:
+    ansible.controller.inventory_source_update:
       name: "{{ inventory_source_name }}"
       inventory: "{{ inventory_name }}"
       organization: "{{ inventory_organization }}"
