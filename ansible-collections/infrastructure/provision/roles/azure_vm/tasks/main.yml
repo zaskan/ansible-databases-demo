@@ -24,9 +24,10 @@
         publisher: "{{ publisher }}" # Example: Canonical
         sku: "{{ sku }}" # Example: 16.04-LTS
         version: "{{ version }}" # Example: latest
+      tags:
+        inventory_name: "{{ vm_name }}"
 
   - name: Update Inventory Source
     ansible.controller.inventory_source_update:
       name: "{{ inventory_source_name }}"
       inventory: "{{ inventory_name }}"
-      organization: "{{ inventory_organization }}"
