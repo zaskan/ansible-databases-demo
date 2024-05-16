@@ -1,6 +1,6 @@
 {
     "env": {
-      "PUBLIC_KEY": "{{ public_key }}"
+      "ORACLE_PASSWORD": "{{ oracle_password }}"
     }
   }
   

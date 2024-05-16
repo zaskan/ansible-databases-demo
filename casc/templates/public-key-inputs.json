@@ -1,0 +1,13 @@
+{
+    "fields": [
+      {
+        "id": "public_key",
+        "type": "string",
+        "label": "public_key",
+        "secret": true
+      }
+    ],
+    "required": [
+      "public_key"
+    ]
+  }
