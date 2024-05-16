@@ -1,2 +1,4 @@
 ---
 # tasks file for oracle_install
+  - include: install.yml
+  - include: configure.yml

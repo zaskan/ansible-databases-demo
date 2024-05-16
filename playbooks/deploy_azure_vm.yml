@@ -13,5 +13,9 @@
         name: infrastructure.provision.azure_vm
       vars:
         os_type: Linux
-        vm_name: test-01
+        vm_name: Oracle-01
         vm_size: Standard_DS1_v2
+
+    - name: Install Oracle
+      ansible.builtin.import_role:
+        name: database.oracle.oracle_install
