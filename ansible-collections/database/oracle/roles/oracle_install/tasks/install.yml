@@ -54,12 +54,11 @@
     ansible.builtin.yum:
       name: "/tmp/{{ installation_package }}"
       state: present
-      state: present
       disable_gpg_check: true
 
   - name: Set Initial Configuration for Oracle
     ansible.builtin.shell:
       cmd: "/etc/init.d/{{ installation_executable }} configure"
     environment:
-      ORACLE_PASSWORD: "{{ oracle_password }}"
+      ORACLE_PASSWORD: "{{ lookup('ansible.builtin.env', 'ORACLE_PASSWORD') }}"
     register: install_output

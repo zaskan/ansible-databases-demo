@@ -1,14 +1,14 @@
 {
     "fields": [
       {
-        "id": "public_key",
+        "id": "oracle_password",
         "type": "string",
         "label": "public_key",
         "secret": true
       }
     ],
     "required": [
-      "public_key"
+      "oracle_password"
     ]
   }
   

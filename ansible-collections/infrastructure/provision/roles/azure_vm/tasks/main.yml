@@ -19,6 +19,7 @@
       ssh_public_keys: "{{ ssh_public_keys | default(omit) }}"
       os_type: "{{ os_type | default(omit) | default(omit) }}"
       ssh_password_enabled: "{{ ssh_password_enabled }}"
+      os_disk_size_gb: "{{ os_disk_size_gb | default(omit) }}"
       image:
         offer: "{{ offer }}" # Example: UbuntuServer
         publisher: "{{ publisher }}" # Example: Canonical

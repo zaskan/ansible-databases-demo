@@ -14,3 +14,4 @@
     version: "8.9.2024040517"
     inventory_source_name: "Microsoft Azure Source"
     inventory_name: "Microsoft Azure"
+    os_disk_size_gb: 80
