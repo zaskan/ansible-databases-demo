@@ -18,7 +18,7 @@ scm_jobtemplates:
     project: "Ansible Databases Demo Project"
     playbook: "playbooks/deploy_oracle.yml"
     creds:
-      - "SSH Public Key"
+      - "RHEL Managed Hosts Credential"
     ask_variables_on_launch: no
     allow_simultaneous: no
     execution_environment: "Azure Execution Environment"

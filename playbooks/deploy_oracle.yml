@@ -2,5 +2,6 @@
 - name: Deploy Oracle Virtual Machine
   hosts: Oracle-01
   gather_facts: false
+  become: true
   roles:
     - role: database.oracle.oracle_install
