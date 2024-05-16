@@ -72,7 +72,7 @@
         state: present
       loop: "{{ organizations }}"
       when:
-        - lookup('file', 'vars/credentials.yml', errors='ignore') is not none
+        - lookup('file', 'vars/organizations.yml', errors='ignore') is not none
 
     - name: Create AAP teams
       ansible.controller.team:
@@ -152,6 +152,16 @@
       when:
         - lookup('file', 'vars/credentials.yml', errors='ignore') is not none
       no_log: true
+
+    - name: Attach Galaxy Credentials to AAP organizations
+      ansible.controller.organization:
+        name: "{{ item.name }}"
+        description: "{{ item.desc }}"
+        state: present
+        galaxy_credentials: "{{ item.creds | default(omit) }}"
+      loop: "{{ organizations }}"
+      when:
+        - lookup('file', 'vars/organizations.yml', errors='ignore') is not none
 
     - name: Create SCM Projects
       ansible.controller.project:

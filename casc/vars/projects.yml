@@ -1,7 +1,7 @@
 scm_projects:
   - name: "Ansible Databases Demo Project"
     desc: "Ansible Databases Demo Project"
-    org: Default
+    org: "{{ default_organization | default('Default') }}"
     git_url: "{{ ansible_databases_scm }}" # Demo repository URL
     git_branch: "{{ ansible_databases_scm_branch }}" # Demo repository branch
     update_on_launch: no

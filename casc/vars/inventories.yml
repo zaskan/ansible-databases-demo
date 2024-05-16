@@ -1,8 +1,8 @@
 inventories: 
   - name: "Microsoft Azure"
     desc: "Microsoft Azure"
-    org: Default
+    org: "{{ default_organization | default('Default') }}"
 
   - name: "Automation Controller Inventory"
     desc: "Automation Controller Inventory"
-    org: Default
+    org: "{{ default_organization | default('Default') }}"

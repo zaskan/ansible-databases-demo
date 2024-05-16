@@ -1,6 +1,6 @@
 scm_jobtemplates:
   - name: "[JT] Deploy Virtual Machine"
-    org: Default
+    org: "{{ default_organization | default('Default') }}"
     inv: "Automation Controller Inventory"
     project: "Ansible Databases Demo Project"
     playbook: "playbooks/deploy_azure_vm.yml"
