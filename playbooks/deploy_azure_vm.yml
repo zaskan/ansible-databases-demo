@@ -20,10 +20,10 @@
       - path: "/home/redhat/.ssh/authorized_keys"
         key_data: "{{ lookup('ansible.builtin.env', 'PUBLIC_KEY') }}"
     image:
-    offer: UbuntuServer
-    publisher: Canonical
-    sku: 16.04-LTS
-    version: latest
+    offer: RHEL
+    publisher: RedHat
+    sku: 9_4
+    version: 9.3.2024050617
     
   tasks:
 
