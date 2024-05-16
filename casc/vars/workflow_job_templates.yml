@@ -27,7 +27,7 @@ scm_workflowjobtemplates:
            type: job_template
          credentials: []
          related:
-           success_nodes:
+           success_nodes: []
            failure_nodes: []
            always_nodes: []
            credentials: []
