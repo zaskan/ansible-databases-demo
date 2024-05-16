@@ -25,7 +25,7 @@
         sku: "{{ sku }}" # Example: 16.04-LTS
         version: "{{ version }}" # Example: latest
 
-  - name: Update a single inventory source
+  - name: Update Inventory Source
     inventory_source_update:
       name: "{{ inventory_source_name }}"
       inventory: "{{ inventory_name }}"
