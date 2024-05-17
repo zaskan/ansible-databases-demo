@@ -6,9 +6,8 @@
     register: new_user
 
   - name: Create Oracle User
-    ansible.builtin.shell: ".bash_profile && /opt/oracle/product/23c/dbhomeFree/bin/sqlplus / as sysdba < {{ new_user.dest }}"
+    ansible.builtin.shell: "/home/oracle/.bash_profile && /opt/oracle/product/23c/dbhomeFree/bin/sqlplus / as sysdba < {{ new_user.dest }}"
     args:
-      chdir: /home/oracle
       executable: /bin/bash
     register: query_result
     changed_when: "query_result.rc == 0"
