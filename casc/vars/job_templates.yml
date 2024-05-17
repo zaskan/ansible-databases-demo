@@ -19,7 +19,7 @@ scm_jobtemplates:
     playbook: "playbooks/configure_azure_vm.yml"
     creds:
       - "RHEL Managed Hosts Credential"
-      - "Oracle Credential"
+      - "Oracle Sysdba Credential"
     ask_variables_on_launch: no
     allow_simultaneous: no
     execution_environment: "Azure Execution Environment"
@@ -30,7 +30,7 @@ scm_jobtemplates:
     playbook: "playbooks/deploy_oracle.yml"
     creds:
       - "RHEL Managed Hosts Credential"
-      - "Oracle Credential"
+      - "Oracle Sysdba Credential"
     ask_variables_on_launch: no
     allow_simultaneous: no
     execution_environment: "Azure Execution Environment"

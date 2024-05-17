@@ -1,0 +1,11 @@
+---
+  - name: Template SQL Sentence using provided variables
+    ansible.builtin.template:
+      src: create_user.sql.j2
+      dest: /tmp/create_user_{{ ansible_date_time.iso8601 }}.sql
+    register: new_user
+
+  - name: Create Oracle User
+    ansible.builtin.command:
+      command: "sqlplus / as sysdba < {{ new_user.dest }}"  
+  

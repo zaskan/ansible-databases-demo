@@ -1,0 +1,20 @@
+{
+    "fields": [
+      {
+        "id": "oracle_user_username",
+        "type": "string",
+        "label": "Oracle User Username"
+      },
+      {
+        "id": "oracle_user_pass",
+        "type": "string",
+        "label": "Oracle User Password",
+        "secret": true
+      }
+    ],
+    "required": [
+      "hub_user",
+      "hub_pass"
+    ]
+  }
+  

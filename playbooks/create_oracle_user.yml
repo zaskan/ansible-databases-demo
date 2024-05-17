@@ -1,0 +1,10 @@
+---
+- name: Create Oracle User
+  hosts: Oracle-01
+  gather_facts: false
+  become: true
+  roles:
+    - role: database.oracle.create_user
+      vars:
+        db_username: "{{ lookup('ansible.builtin.env', 'ORACLE_USER_USERNAME') }}"
+        db_password: "{{ lookup('ansible.builtin.env', 'ORACLE_USER_PASSWORD') }}"

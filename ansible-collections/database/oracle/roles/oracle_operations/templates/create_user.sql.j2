@@ -1,0 +1,6 @@
+WHENEVER SQLERROR EXIT SQL.SQLCODE
+BEGIN
+EXECUTE IMMEDIATE 'alter session set "_ORACLE_SCRIPT"=true';
+EXECUTE IMMEDIATE 'create user {{ db_username }} identified by {{ db_password }} quota unlimited on users';
+END;
+/
