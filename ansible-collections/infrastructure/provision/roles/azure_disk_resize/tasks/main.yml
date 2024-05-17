@@ -7,11 +7,11 @@
       lv: "{{ item }}"
       size: +20%FREE
     loop:
-      - rootvg-tmplv
-      - rootvg-usrlv
-      - rootvg-homelv
-      - rootvg-varlv
-      - rootvg-rootlv
+      - tmplv
+      - usrlv
+      - homelv
+      - varlv
+      - rootlv
 
   - name: Create a filesystem on top of a regular file
     community.general.filesystem:
