@@ -6,7 +6,12 @@
     register: new_user
 
   - name: Create Oracle User
-    ansible.builtin.command:
-      command: "sqlplus / as sysdba < {{ new_user.dest }}"
+    ansible.builtin.command: "sqlplus / as sysdba < {{ new_user.dest }}"
+    register: query_result
+    changed_when: "query_result.rc == 0"
+    failed_when: "query_result.rc != 0"
 
-  
+  - name: Delete templated file
+    ansible.builtin.file:
+      path: "{{ new_user.dest }}"
+      state: absent
