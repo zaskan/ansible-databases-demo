@@ -30,30 +30,20 @@
       - xorg-x11-xauth
       - git
   
-  - name: Download Oracle Preinstallation Package
-    ansible.builtin.get_url:
-      url: "{{ preinstall_package_url }}"
-      dest: /tmp
-      mode: '0755' 
-    register: preinstallation_package
-
-  - name: Download Oracle Installation Package
-    ansible.builtin.get_url:
-      url: "{{ install_package_url }}"
-      dest: /tmp
-      mode: '0755' 
-    register: installation_package
-
   - name: Install Oracle Preinstallation Package
-    ansible.builtin.yum:
-      name: "/tmp/{{ preinstallation_package }}"
+    ansible.builtin.dnf:
+      name: "{{ preinstall_package_url }}"
       state: present
+      validate_certs: false
+      sslverify: false
       disable_gpg_check: true
 
   - name: Install Oracle Installation Package
-    ansible.builtin.yum:
-      name: "/tmp/{{ installation_package }}"
+    ansible.builtin.dnf:
+      name: "{{ install_package_url }}"
       state: present
+      validate_certs: false
+      sslverify: false
       disable_gpg_check: true
 
   - name: Set Initial Configuration for Oracle
