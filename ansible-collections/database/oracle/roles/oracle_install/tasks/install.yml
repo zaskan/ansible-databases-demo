@@ -9,7 +9,7 @@
       path: /etc/hosts
 
   - name: Install dependencies
-    ansible.builtin.yum:
+    ansible.builtin.dnf:
       name: "{{ item }}"
       state: present
     loop:
