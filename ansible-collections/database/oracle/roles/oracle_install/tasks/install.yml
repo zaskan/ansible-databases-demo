@@ -5,7 +5,7 @@
 
   - name: Add entry to hosts file
     ansible.builtin.lineinfile:
-      line: "{{ private_ipv4_addresses }} {{ inventory_hostname }}"
+      line: "{{ private_ipv4_addresses.0 }} {{ inventory_hostname }}"
       path: /etc/hosts
 
   - name: Install dependencies
