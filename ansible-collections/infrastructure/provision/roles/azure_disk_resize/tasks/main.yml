@@ -5,13 +5,13 @@
     community.general.lvol:
       vg: rootvg
       lv: "{{ item }}"
-      size: +20%FREE
+      size: +30%FREE
     loop:
-      - tmplv
-      - usrlv
-      - homelv
-      - varlv
       - rootlv
+      - tmplv
+      - homelv
+      - usrlv
+      - varlv
 
   - name: Create a filesystem on top of a regular file
     community.general.filesystem:
@@ -19,8 +19,8 @@
       fstype: xfs
       resizefs: true
     loop:
-      - tmplv
-      - usrlv
-      - homelv
-      - varlv
       - rootlv
+      - tmplv
+      - homelv
+      - usrlv
+      - varlv
