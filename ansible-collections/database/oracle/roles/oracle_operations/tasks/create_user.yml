@@ -8,7 +8,7 @@
   - name: Create Oracle User
     ansible.builtin.shell: "source .bash_profile && sqlplus / as sysdba < {{ new_user.dest }}"
     args:
-      chdir: /hom/oracle
+      chdir: /home/oracle
       executable: /bin/bash
     register: query_result
     changed_when: "query_result.rc == 0"
