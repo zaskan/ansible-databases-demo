@@ -1,0 +1,2 @@
+  - ansible.builtin.include_tasks: create_user.yml
+    when: operation == "create_user"
