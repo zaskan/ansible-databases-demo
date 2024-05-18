@@ -8,7 +8,7 @@
             "choices": "",
             "default": "",
             "required": true,
-            "variable": "oracle_user_username",
+            "variable": "username",
             "new_question": true,
             "question_name": "Username",
             "question_description": ""
@@ -20,7 +20,7 @@
             "choices": "",
             "default": "",
             "required": true,
-            "variable": "oracle_user_password",
+            "variable": "password",
             "new_question": true,
             "question_name": "Password",
             "question_description": ""

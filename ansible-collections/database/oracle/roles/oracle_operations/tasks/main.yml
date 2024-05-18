@@ -14,20 +14,20 @@
   register: query_result
   changed_when: "query_result.rc == 0"
   failed_when: "query_result.rc != 0"
-  when: lookup('ansible.builtin.env', 'ORACLE_USER_USERNAME') is not defined
+  when: lookup('ansible.builtin.env', 'ORACLE_DATABASE_USERNAME') is not defined
 
 - name: Execute SQL operation as Database User
   ansible.builtin.shell: |
     source .bash_profile && \
-    sqlplus {{ lookup('ansible.builtin.env', 'ORACLE_USER_USERNAME') }}
-    /{{ lookup('ansible.builtin.env', 'ORACLE_USER_PASSWORD') }} < {{ sql_script.dest }}
+    sqlplus {{ lookup('ansible.builtin.env', 'ORACLE_DATABASE_USERNAME') }}
+    /{{ lookup('ansible.builtin.env', 'ORACLE_DATABASE_PASSWORD') }} < {{ sql_script.dest }}
   args:
     chdir: /home/oracle
     executable: /bin/bash
   register: query_result
   changed_when: "query_result.rc == 0"
   failed_when: "query_result.rc != 0"
-  when: lookup('ansible.builtin.env', 'ORACLE_USER_USERNAME') is defined
+  when: lookup('ansible.builtin.env', 'ORACLE_DATABASE_USERNAME') is defined
 
 - name: Clean temporary files
   ansible.builtin.file:

@@ -1,6 +1,6 @@
 {
     "env": {
-      "ORACLE_USER_PASSWORD": "{{ oracle_user_pass }}",
-      "ORACLE_USER_USERNAME": "{{ oracle_user_username }}"
+      "ORACLE_DATABASE_PASSWORD": "{{ oracle_database_password }}",
+      "ORACLE_DATABASE_USERNAME": "{{ oracle_database_username }}"
     }
   }
