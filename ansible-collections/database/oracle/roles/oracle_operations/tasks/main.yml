@@ -6,7 +6,9 @@
     mode: "0755"
   register: sql_script
 
-- name: "Execute SQL operation as Sysdba"
+- debug: msg="{{ lookup('ansible.builtin.env', 'ORACLE_DATABASE_USERNAME')  }}"
+
+- name: Execute SQL operation as Sysdba
   ansible.builtin.shell: "source .bash_profile && sqlplus / as sysdba < {{ sql_script.dest }}"
   args:
     chdir: /home/oracle
