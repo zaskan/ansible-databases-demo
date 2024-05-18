@@ -8,5 +8,5 @@
     - role: database.oracle.oracle_operations
       vars:
         operation: create_user
-        db_username: "{{ lookup('ansible.builtin.env', 'ORACLE_USER_USERNAME') }}"
-        db_password: "{{ lookup('ansible.builtin.env', 'ORACLE_USER_PASSWORD') }}"
+        db_username: "{{ oracle_user_username }}"
+        db_password: "{{ oracle_user_password }}"
