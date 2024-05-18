@@ -1,2 +1,35 @@
-  - ansible.builtin.include_tasks: create_user.yml
-    when: operation == "create_user"
+---
+- name: Template SQL Sentence using provided variables
+  ansible.builtin.template:
+    src: "{{ operation }}.sql.j2"
+    dest: "/tmp/{{ operation }}_{{ ansible_date_time.iso8601 }}.sql"
+    mode: "0755"
+  register: sql_script
+
+- name: "Execute SQL operation as Sysdba"
+  ansible.builtin.shell: "source .bash_profile && sqlplus / as sysdba < {{ sql_script.dest }}"
+  args:
+    chdir: /home/oracle
+    executable: /bin/bash
+  register: query_result
+  changed_when: "query_result.rc == 0"
+  failed_when: "query_result.rc != 0"
+  when: lookup('ansible.builtin.env', 'ORACLE_USER_USERNAME') is not defined
+
+- name: Execute SQL operation as Database User
+  ansible.builtin.shell: |
+    source .bash_profile && \
+    sqlplus {{ lookup('ansible.builtin.env', 'ORACLE_USER_USERNAME') }}
+    /{{ lookup('ansible.builtin.env', 'ORACLE_USER_PASSWORD') }} < {{ sql_script.dest }}
+  args:
+    chdir: /home/oracle
+    executable: /bin/bash
+  register: query_result
+  changed_when: "query_result.rc == 0"
+  failed_when: "query_result.rc != 0"
+  when: lookup('ansible.builtin.env', 'ORACLE_USER_USERNAME') is defined
+
+- name: Clean temporary files
+  ansible.builtin.file:
+    path: "{{ sql_script.dest }}"
+    state: absent

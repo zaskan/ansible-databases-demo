@@ -5,6 +5,6 @@ inventory_sources:
      source: "azure_rm"
      credential: "Microsoft Azure Credential"
      inventory: "Microsoft Azure"
-     vars: 
-       hostnames:
-         - tags.inventory_name
+     vars:
+        hostnames:
+           - tags.inventory_name

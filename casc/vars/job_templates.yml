@@ -9,8 +9,8 @@ scm_jobtemplates:
       - "Microsoft Azure Credential"
       - "Microsoft Azure Resource Group"
       - "SSH Public Key"
-    ask_variables_on_launch: no
-    allow_simultaneous: no
+    ask_variables_on_launch: false
+    allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
   - name: "[JT] Configure Oracle Machine"
     org: "{{ default_organization | default('Default') }}"
@@ -20,8 +20,8 @@ scm_jobtemplates:
     creds:
       - "RHEL Managed Hosts Credential"
       - "Oracle Sysdba Credential"
-    ask_variables_on_launch: no
-    allow_simultaneous: no
+    ask_variables_on_launch: false
+    allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
   - name: "[JT] Deploy Oracle"
     org: "{{ default_organization | default('Default') }}"
@@ -31,6 +31,18 @@ scm_jobtemplates:
     creds:
       - "RHEL Managed Hosts Credential"
       - "Oracle Sysdba Credential"
-    ask_variables_on_launch: no
-    allow_simultaneous: no
+    ask_variables_on_launch: false
+    allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
+  - name: "[JT] Create Oracle User"
+    org: "{{ default_organization | default('Default') }}"
+    inv: "Microsoft Azure"
+    project: "Ansible Databases Demo Project"
+    playbook: "playbooks/create_oracle_user.yml"
+    creds:
+      - "RHEL Managed Hosts Credential"
+    ask_variables_on_launch: false
+    allow_simultaneous: false
+    execution_environment: "Azure Execution Environment"
+    survey_enabled: true
+    survey_spec: "{{ lookup('file', 'surveys/oracle_new_user.json') }}"

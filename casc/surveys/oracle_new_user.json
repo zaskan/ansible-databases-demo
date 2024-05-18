@@ -1,0 +1,30 @@
+{
+    "name": "",
+    "spec": [
+        {
+            "max": 32,
+            "min": 0,
+            "type": "text",
+            "choices": "",
+            "default": "",
+            "required": true,
+            "variable": "oracle_user_username",
+            "new_question": true,
+            "question_name": "Username",
+            "question_description": ""
+        },
+        {
+            "max": 32,
+            "min": 0,
+            "type": "password",
+            "choices": "",
+            "default": "",
+            "required": true,
+            "variable": "oracle_user_password",
+            "new_question": true,
+            "question_name": "Password",
+            "question_description": ""
+        }
+    ],
+    "description": ""
+}
