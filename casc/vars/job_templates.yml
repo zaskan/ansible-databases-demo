@@ -65,6 +65,7 @@ scm_jobtemplates:
     playbook: "playbooks/oracle/execute_script.yml"
     creds:
       - "RHEL Managed Hosts Credential"
+      - "Oracle HR User Credential"
     ask_variables_on_launch: false
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
