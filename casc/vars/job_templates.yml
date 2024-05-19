@@ -69,4 +69,4 @@ scm_jobtemplates:
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
     survey_enabled: true
-    survey_spec: "{{ lookup('file', 'surveys/oracle_grant_role.json') }}"
+    survey_spec: "{{ lookup('file', 'surveys/oracle_execute_script.json') }}"
