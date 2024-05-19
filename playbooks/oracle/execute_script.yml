@@ -1,0 +1,11 @@
+---
+- name: Execute Script
+  hosts: Oracle-01
+  gather_facts: true
+  become: true
+  become_user: oracle
+  roles:
+    - role: database.oracle.oracle_operations
+      vars:
+        operation: execute_script
+        script_filename: "{{ script_filename }}"

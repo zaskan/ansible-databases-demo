@@ -58,3 +58,15 @@ scm_jobtemplates:
     execution_environment: "Azure Execution Environment"
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/oracle_grant_role.json') }}"
+  - name: "[JT] Execute Script"
+    org: "{{ default_organization | default('Default') }}"
+    inv: "Microsoft Azure"
+    project: "Ansible Databases Demo Project"
+    playbook: "playbooks/oracle/execute_script.yml"
+    creds:
+      - "RHEL Managed Hosts Credential"
+    ask_variables_on_launch: false
+    allow_simultaneous: false
+    execution_environment: "Azure Execution Environment"
+    survey_enabled: true
+    survey_spec: "{{ lookup('file', 'surveys/oracle_grant_role.json') }}"

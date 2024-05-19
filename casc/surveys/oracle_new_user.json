@@ -2,27 +2,15 @@
     "name": "",
     "spec": [
         {
-            "max": 32,
+            "max": 256,
             "min": 0,
             "type": "text",
             "choices": "",
             "default": "",
             "required": true,
-            "variable": "username",
+            "variable": "script_filename",
             "new_question": true,
-            "question_name": "Username",
-            "question_description": ""
-        },
-        {
-            "max": 32,
-            "min": 0,
-            "type": "password",
-            "choices": "",
-            "default": "",
-            "required": true,
-            "variable": "password",
-            "new_question": true,
-            "question_name": "Password",
+            "question_name": "Script Filename",
             "question_description": ""
         }
     ],
