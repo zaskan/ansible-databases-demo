@@ -1,6 +1,6 @@
 WHENEVER SQLERROR EXIT SQL.SQLCODE
 BEGIN
 EXECUTE IMMEDIATE 'alter session set "_ORACLE_SCRIPT"=true';
-EXECUTE IMMEDIATE 'grant {{ user_roles }} to {{ username }};';
+EXECUTE IMMEDIATE 'grant {{ user_roles }} to {{ username }}';
 END;
 /
