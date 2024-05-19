@@ -1,0 +1,12 @@
+---
+- name: Grant Role to  User
+  hosts: Oracle-01
+  gather_facts: true
+  become: true
+  become_user: oracle
+  roles:
+    - role: database.oracle.oracle_operations
+      vars:
+        operation: grant
+        db_username: "{{ username }}"
+        roles: "{{ roles }}"
