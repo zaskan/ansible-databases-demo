@@ -58,3 +58,8 @@
     environment:
       ORACLE_PASSWORD: "{{ lookup('ansible.builtin.env', 'ORACLE_PASSWORD') }}"
     register: install_output
+
+  - name: Copy Oracle Scripts
+    ansible.builtin.synchronize:
+      src: "./files"
+      dest: "/home/oracle/files"
