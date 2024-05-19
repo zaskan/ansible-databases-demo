@@ -50,7 +50,7 @@ scm_jobtemplates:
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/create_oracle_user.yml"
+    playbook: "playbooks/grant_oracle_roles.yml"
     creds:
       - "RHEL Managed Hosts Credential"
     ask_variables_on_launch: false
