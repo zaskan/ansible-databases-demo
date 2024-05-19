@@ -20,7 +20,7 @@
             "choices": "",
             "default": "",
             "required": true,
-            "variable": "roles",
+            "variable": "user_roles",
             "new_question": true,
             "question_name": "Roles",
             "question_description": "Add roles, sparated by comma"

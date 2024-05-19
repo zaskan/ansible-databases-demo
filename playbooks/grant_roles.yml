@@ -7,6 +7,6 @@
   roles:
     - role: database.oracle.oracle_operations
       vars:
-        operation: grant
+        operation: grant_roles
         db_username: "{{ username }}"
-        roles: "{{ roles }}"
+        roles: "{{ user_roles }}"
