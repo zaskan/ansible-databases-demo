@@ -3,7 +3,7 @@ scm_jobtemplates:
     org: "{{ default_organization | default('Default') }}"
     inv: "Automation Controller Inventory"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/deploy_azure_vm.yml"
+    playbook: "playbooks/infrastructure/deploy_azure_vm.yml"
     creds:
       - "Red Hat Ansible Automation Platform Credential"
       - "Microsoft Azure Credential"
@@ -16,7 +16,7 @@ scm_jobtemplates:
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/configure_azure_vm.yml"
+    playbook: "playbooks/infrastructure/configure_azure_vm.yml"
     creds:
       - "RHEL Managed Hosts Credential"
       - "Oracle Sysdba Credential"
@@ -27,7 +27,7 @@ scm_jobtemplates:
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/deploy_oracle.yml"
+    playbook: "playbooks/oracle/deploy_oracle.yml"
     creds:
       - "RHEL Managed Hosts Credential"
       - "Oracle Sysdba Credential"
@@ -38,7 +38,7 @@ scm_jobtemplates:
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/create_oracle_user.yml"
+    playbook: "playbooks/oracle/create_oracle_user.yml"
     creds:
       - "RHEL Managed Hosts Credential"
     ask_variables_on_launch: false
@@ -50,7 +50,7 @@ scm_jobtemplates:
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/grant_oracle_roles.yml"
+    playbook: "playbooks/oracle/grant_oracle_roles.yml"
     creds:
       - "RHEL Managed Hosts Credential"
     ask_variables_on_launch: false
