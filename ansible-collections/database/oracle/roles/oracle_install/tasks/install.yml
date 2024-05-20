@@ -39,7 +39,9 @@
   - name: Copy Oracle Scripts
     ansible.builtin.synchronize:
       src: "./files"
-      dest: "/home/oracle/files"
+      dest: "/home/oracle"
+      owner: oracle
+      group: oinstall
   
   - name: Install Oracle Preinstallation Package
     ansible.builtin.dnf:

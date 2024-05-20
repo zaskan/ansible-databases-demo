@@ -5,6 +5,7 @@
     dest: "/tmp/{{ operation }}_{{ ansible_date_time.iso8601 }}.sql"
     mode: "0755"
   register: sql_script
+  when: lookup('ansible.builtin.env', 'ORACLE_DATABASE_USERNAME') != ""
 
 - name: Execute SQL operation as Sysdba
   ansible.builtin.shell: "source .bash_profile && sqlplus / as sysdba < {{ sql_script.dest }}"
@@ -20,7 +21,7 @@
   ansible.builtin.shell: |
     source .bash_profile && \
     sqlplus {{ lookup('ansible.builtin.env', 'ORACLE_DATABASE_USERNAME') }}
-    /{{ lookup('ansible.builtin.env', 'ORACLE_DATABASE_PASSWORD') }} < {{ sql_script.dest }}
+    /{{ lookup('ansible.builtin.env', 'ORACLE_DATABASE_PASSWORD') }} < {{ script_filename }}
   args:
     chdir: /home/oracle
     executable: /bin/bash
