@@ -30,6 +30,10 @@ collections:
     version: 1.5.4
     source: https://galaxy.ansible.com
 
+  - name: ansible.utils
+    version: 4.1.0
+    source: https://galaxy.ansible.com
+
   - name: ansible_ssa.windows
     type: git
     source: "https://gitlab.com/ansible-ssa/collection-ansible_ssa-windows.git#/ansible_ssa/"
