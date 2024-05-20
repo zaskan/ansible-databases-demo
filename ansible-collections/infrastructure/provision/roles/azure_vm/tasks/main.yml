@@ -2,7 +2,7 @@
   - name: Create virtual network interface card
     azure_rm_networkinterface:
       resource_group: "{{ resource_group }}"
-      name: "{{ vm_name }}"
+      name: "{{ vm_hostname }}"
       virtual_network: "{{ project_name }}"
       subnet: "{{ project_name }}"
       public_ip_name: "{{ project_name }}"
@@ -11,11 +11,11 @@
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: "{{ resource_group }}"
-      name: "{{ vm_name }}"
+      name: "{{ vm_hostname }}"
       vm_size: "{{ vm_size }}" # Example: Standard_DS1_v2
       admin_username: "{{ username }}"
       admin_password: "{{ password | default(omit) }}"
-      network_interfaces: "{{ vm_name }}"
+      network_interfaces: "{{ vm_hostname }}"
       ssh_public_keys: "{{ ssh_public_keys | default(omit) }}"
       os_type: "{{ os_type | default(omit) | default(omit) }}"
       ssh_password_enabled: "{{ ssh_password_enabled }}"
@@ -26,7 +26,7 @@
         sku: "{{ sku }}" # Example: 16.04-LTS
         version: "{{ version }}" # Example: latest
       tags:
-        inventory_name: "{{ vm_name }}"
+        inventory_name: "{{ vm_hostname }}"
 
   - name: Update Inventory Source
     ansible.controller.inventory_source_update:
@@ -35,5 +35,5 @@
 
   - name: Add host
     ansible.builtin.add_host:
-      name: "{{ vm_name }}"
+      name: "{{ vm_hostname }}"
 
