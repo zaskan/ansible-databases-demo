@@ -2,12 +2,12 @@
 # tasks file for oracle_backup
 - name: Get current date
   ansible.builtin.set_fact:
-    backup_time: "{{ ansible_date_time.iso8601 }}"
+    backup_time: "{{ ansible_date_time.iso8601_basic_short }}"
   when: inventory_hostname == origin
 
 - name: Create a directory if it does not exist
   ansible.builtin.file:
-    path: 
+    path: "{{ item }}"
     state: directory
     mode: '0755'
   loop:
