@@ -41,14 +41,6 @@
       src: "./files"
       dest: "/home/oracle"
 
-  - name: Set permissions
-    ansible.builtin.file:
-      path: "/home/oracle/files"
-      owner: oracle
-      group: oinstall
-      mode: "0755"
-      recurse: yes
-  
   - name: Install Oracle Preinstallation Package
     ansible.builtin.dnf:
       name: "{{ preinstall_package_url }}"
@@ -71,6 +63,14 @@
     environment:
       ORACLE_PASSWORD: "{{ lookup('ansible.builtin.env', 'ORACLE_PASSWORD') }}"
     register: install_output
+
+  - name: Set permissions
+    ansible.builtin.file:
+      path: "/home/oracle/files"
+      owner: oracle
+      group: oinstall
+      mode: "0755"
+      recurse: yes
 
   - name: Set variables
     ansible.builtin.set_stats:
