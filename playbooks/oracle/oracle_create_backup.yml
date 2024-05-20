@@ -4,11 +4,8 @@
   gather_facts: true
   become: true
   become_user: oracle
-  tasks:
-    - ansible.builtin.debug:
-        var: ansible_facts
-#  roles:
-#    - role: database.oracle.oracle_backup
-#      vars:
-#        origin: "{{ origin }}"
-#        target: "{{ target }}"
+  roles:
+    - role: database.oracle.oracle_backup
+      vars:
+        origin: "{{ origin }}"
+        target: "{{ target }}"
