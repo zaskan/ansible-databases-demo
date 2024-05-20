@@ -24,6 +24,7 @@
     state: mounted
     fstype: nfs
   become: true
+  become_user: root
   when: inventory_hostname == target
 
 - name: Template RMAN Script using provided variables
