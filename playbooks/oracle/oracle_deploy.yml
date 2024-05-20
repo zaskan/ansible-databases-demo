@@ -1,7 +1,7 @@
 ---
 - name: Deploy Oracle
   hosts: "{{ vm_hostname }}"
-  gather_facts: false
+  gather_facts: true
   become: true
   roles:
     - role: database.oracle.oracle_install
