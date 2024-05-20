@@ -37,11 +37,17 @@
       enabled: false
 
   - name: Copy Oracle Scripts
-    ansible.builtin.synchronize:
+    ansible.posix.synchronize:
       src: "./files"
       dest: "/home/oracle"
+
+  - name: Set permissions
+    ansible.builtin.file:
+      path: "/home/oracle/files"
       owner: oracle
       group: oinstall
+      mode: "0755"
+      recurse: yes
   
   - name: Install Oracle Preinstallation Package
     ansible.builtin.dnf:

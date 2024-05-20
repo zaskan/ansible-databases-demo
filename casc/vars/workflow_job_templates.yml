@@ -2,9 +2,11 @@ scm_workflowjobtemplates:
   - name: "[WF] Deploy Oracle Server"
     org: "{{ default_organization | default('Default') }}"
     inv: ""
-    ask_variables_on_launch: true
-    ask_limit_on_launch: true
+    ask_variables_on_launch: false
+    ask_limit_on_launch: false
     allow_simultaneous: true
+    survey_enabled: true
+    survey_spec: "{{ lookup('file', 'surveys/infra_deploy_vm.json') }}"
     steps:
        - identifier: Provision Infrastructure
          unified_job_template:
