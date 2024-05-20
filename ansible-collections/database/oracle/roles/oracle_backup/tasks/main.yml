@@ -26,6 +26,6 @@
     chdir: /home/oracle
     executable: /bin/bash
   register: backup_result
-  changed_when: "query_result.rc == 0"
-  failed_when: "query_result.rc != 0"
+  changed_when: "backup_result.rc == 0"
+  failed_when: "backup_result.rc != 0"
   when: inventory_hostname == origin
