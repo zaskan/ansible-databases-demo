@@ -7,7 +7,7 @@
 
 - name: Create a directory if it does not exist
   ansible.builtin.file:
-    path: "/home/oracle/backup/backup_{{ backup_time }}"
+    path: "/home/oracle/backups/backup_{{ backup_time }}"
     state: directory
     mode: '0755'
   when: inventory_hostname == origin
