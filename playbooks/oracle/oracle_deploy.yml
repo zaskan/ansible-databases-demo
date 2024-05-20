@@ -1,5 +1,5 @@
 ---
-- name: Deploy Oracle Virtual Machine
+- name: Deploy Oracle
   hosts: Oracle-01
   gather_facts: false
   become: true

@@ -23,7 +23,7 @@ scm_workflowjobtemplates:
          unified_job_template:
            organization:
              name: "{{ default_organization | default('Default') }}"
-           name: "[JT] Configure Oracle Machine"
+           name: "[JT] [Oracle] Configure Machine"
            type: job_template
          credentials: []
          related:
@@ -36,7 +36,7 @@ scm_workflowjobtemplates:
          unified_job_template:
            organization:
              name: "{{ default_organization | default('Default') }}"
-           name: "[JT] Deploy Oracle"
+           name: "[JT] [Oracle] Deploy Oracle"
            type: job_template
          credentials: []
          related:

@@ -12,7 +12,7 @@ scm_jobtemplates:
     ask_variables_on_launch: false
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
-  - name: "[JT] Configure Oracle Machine"
+  - name: "[JT] [Oracle] Configure Machine"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
@@ -23,22 +23,22 @@ scm_jobtemplates:
     ask_variables_on_launch: false
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
-  - name: "[JT] Deploy Oracle"
+  - name: "[JT] [Oracle] Deploy Oracle"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/oracle/deploy_oracle.yml"
+    playbook: "playbooks/oracle/oracle_deploy.yml"
     creds:
       - "RHEL Managed Hosts Credential"
       - "Oracle Sysdba Credential"
     ask_variables_on_launch: false
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
-  - name: "[JT] Create Oracle User"
+  - name: "[JT] [Oracle] Create User"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/oracle/create_oracle_user.yml"
+    playbook: "playbooks/oracle/oracle_create_user.yml"
     creds:
       - "RHEL Managed Hosts Credential"
     ask_variables_on_launch: false
@@ -46,11 +46,11 @@ scm_jobtemplates:
     execution_environment: "Azure Execution Environment"
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/oracle_new_user.json') }}"
-  - name: "[JT] Grant Roles to Database User"
+  - name: "[JT] [Oracle] Grant Roles to Database User"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/oracle/grant_oracle_roles.yml"
+    playbook: "playbooks/oracle/oracle_grant_roles.yml"
     creds:
       - "RHEL Managed Hosts Credential"
     ask_variables_on_launch: false
@@ -58,11 +58,11 @@ scm_jobtemplates:
     execution_environment: "Azure Execution Environment"
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/oracle_grant_role.json') }}"
-  - name: "[JT] Execute Script"
+  - name: "[JT] [Oracle] Execute Script"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/oracle/execute_script.yml"
+    playbook: "playbooks/oracle/oracle_execute_script.yml"
     creds:
       - "RHEL Managed Hosts Credential"
       - "Oracle HR User Credential"
