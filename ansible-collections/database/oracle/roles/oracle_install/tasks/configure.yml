@@ -9,6 +9,7 @@
     ansible.builtin.lineinfile:
       line: "{{ item }}"
       path: "/home/oracle/.bash_profile"
+      create: true
     loop:
       - export ORACLE_SID=FREE
       - export ORACLE_HOME="{{ oracle_home }}"
