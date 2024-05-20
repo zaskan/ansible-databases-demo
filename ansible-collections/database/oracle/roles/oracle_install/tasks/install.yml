@@ -65,8 +65,7 @@
       ORACLE_PASSWORD: "{{ lookup('ansible.builtin.env', 'ORACLE_PASSWORD') }}"
     register: install_output
     changed_when: 
-      - install_output.rc == 0
-      - install_output.stdout == "There is an Oracle Database instance FREE already configured in the server."
+      - install_output.rc == 0 or install_output.stdout == "There is an Oracle Database instance FREE already configured in the server."
 
   - name: Create NFS Shared directory
     ansible.builtin.file:
@@ -90,11 +89,11 @@
       line: "/home/oracle/backups {{ private_ipv4_addresses.0 | ansible.utils.ipaddr('net') }}(rw,sync,no_root_squash,no_subtree_check)"
       insertafter: EOF
 
-  - name: Reload config
-    ansible.builtin.command:
-      cmd: "exportfs -r"
-    register: exports
-    changed_when: exports.rc == 0
+  - name: Enable RPCBind 
+    ansible.builtin.service:
+      name: rpcbind
+      state: started
+      enabled: true
 
   - name: Set variables
     ansible.builtin.set_stats:
