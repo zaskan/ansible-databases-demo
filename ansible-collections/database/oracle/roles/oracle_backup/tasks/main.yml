@@ -14,7 +14,7 @@
 
 - name: Template RMAN Script using provided variables
   ansible.builtin.template:
-    src: "{{ backup }}.rmn.j2"
+    src: "backup.rmn.j2"
     dest: "/tmp/backup_{{ backup_time }}.rmn"
     mode: "0755"
   register: backup_script
