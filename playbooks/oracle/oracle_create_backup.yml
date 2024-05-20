@@ -6,7 +6,7 @@
   become_user: oracle
   tasks:
     - ansible.builtin.debug:
-      var: ansible_facts
+        var: ansible_facts
 #  roles:
 #    - role: database.oracle.oracle_backup
 #      vars:
