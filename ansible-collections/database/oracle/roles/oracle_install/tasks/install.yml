@@ -64,9 +64,7 @@
     environment:
       ORACLE_PASSWORD: "{{ lookup('ansible.builtin.env', 'ORACLE_PASSWORD') }}"
     register: install_output
-    changed_when: 
-      - install_output.rc == 0 
-      - install_output.rc == 1 && install_output.stdout == "There is an Oracle Database instance FREE already configured in the server."
+    changed_when: install_output.rc == 0  or  install_output.rc == 1 && install_output.stdout == "There is an Oracle Database instance FREE already configured in the server."
 
   - name: Create NFS Shared directory
     ansible.builtin.file:
