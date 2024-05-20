@@ -1,0 +1,47 @@
+{
+    "name": "",
+    "spec": [
+        {
+            "max": 1024,
+            "min": 0,
+            "type": "multiplechoice",
+            "choices": [
+                "Linux",
+                "Windows"
+            ],
+            "default": "",
+            "required": true,
+            "variable": "os_type",
+            "new_question": false,
+            "question_name": "Operating System",
+            "question_description": ""
+        },
+        {
+            "max": 1024,
+            "min": 0,
+            "type": "multiplechoice",
+            "choices": [
+                "Standard_DS1_v2"
+            ],
+            "default": "",
+            "required": true,
+            "variable": "vm_size",
+            "new_question": true,
+            "question_name": "Virtual Machine Size",
+            "question_description": ""
+        },
+        {
+            "max": 32,
+            "min": 0,
+            "type": "text",
+            "choices": "",
+            "default": "",
+            "required": true,
+            "variable": "vm_hostname",
+            "new_question": true,
+            "question_name": "Hostname",
+            "question_description": ""
+        }
+    ],
+    "description": ""
+}

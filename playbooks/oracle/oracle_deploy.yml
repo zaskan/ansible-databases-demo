@@ -1,6 +1,6 @@
 ---
 - name: Deploy Oracle
-  hosts: Oracle-01
+  hosts: "{{ vm_hostname }}"
   gather_facts: false
   become: true
   roles:

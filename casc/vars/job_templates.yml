@@ -12,6 +12,8 @@ scm_jobtemplates:
     ask_variables_on_launch: false
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
+    survey_enabled: true
+    survey_spec: "{{ lookup('file', 'surveys/infra_deploy_vm.json') }}"
   - name: "[JT] [Oracle] Configure Machine"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
@@ -20,7 +22,7 @@ scm_jobtemplates:
     creds:
       - "RHEL Managed Hosts Credential"
       - "Oracle Sysdba Credential"
-    ask_variables_on_launch: false
+    ask_variables_on_launch: true
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
   - name: "[JT] [Oracle] Deploy Oracle"
@@ -31,7 +33,7 @@ scm_jobtemplates:
     creds:
       - "RHEL Managed Hosts Credential"
       - "Oracle Sysdba Credential"
-    ask_variables_on_launch: false
+    ask_variables_on_launch: true
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
   - name: "[JT] [Oracle] Create User"

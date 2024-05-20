@@ -66,3 +66,7 @@
       ORACLE_PASSWORD: "{{ lookup('ansible.builtin.env', 'ORACLE_PASSWORD') }}"
     register: install_output
 
+  - name: Set variables
+    ansible.builtin.set_stats:
+      data:
+        vm_hostname: "{{ vm_hostname }}"

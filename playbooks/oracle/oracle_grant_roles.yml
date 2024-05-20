@@ -1,6 +1,6 @@
 ---
 - name: Grant Role to  User
-  hosts: Oracle-01
+  hosts: "{{ vm_hostname }}"
   gather_facts: true
   become: true
   become_user: oracle
