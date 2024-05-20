@@ -29,6 +29,7 @@
       - xorg-x11-utils
       - xorg-x11-xauth
       - git
+      - nfs-utils
 
   - name: Disable Firewalld
     ansible.builtin.service:
@@ -63,14 +64,37 @@
     environment:
       ORACLE_PASSWORD: "{{ lookup('ansible.builtin.env', 'ORACLE_PASSWORD') }}"
     register: install_output
+    changed_when: 
+      - install_output.rc == 0
+      - install_output.stdout == "There is an Oracle Database instance FREE already configured in the server."
+
+  - name: Create NFS Shared directory
+    ansible.builtin.file:
+      path: "/home/oracle/backups"
+      state: directory
 
   - name: Set permissions
     ansible.builtin.file:
-      path: "/home/oracle/files"
+      path: "{{ item }}"
       owner: oracle
       group: oinstall
       mode: "0755"
       recurse: yes
+    loop:
+      - "/home/oracle/files"
+      - "/home/oracle/backups"
+
+  - name: Create NFS exports configuration
+    ansible.builtin.lineinfile:
+      path: "/etc/exports"
+      line: "/home/oracle/backups {{ private_ipv4_addresses.0 | ansible.utils.ipaddr('net') }}(rw,sync,no_root_squash,no_subtree_check)"
+      insertafter: EOF
+
+  - name: Reload config
+    ansible.builtin.command:
+      cmd: "exportfs -r"
+    register: exports
+    changed_when: exports.rc == 0
 
   - name: Set variables
     ansible.builtin.set_stats:
