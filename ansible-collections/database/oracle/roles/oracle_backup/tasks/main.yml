@@ -7,10 +7,23 @@
 
 - name: Create a directory if it does not exist
   ansible.builtin.file:
-    path: "/home/oracle/backups/backup_{{ backup_time }}"
+    path: 
     state: directory
     mode: '0755'
+  loop:
+    - "/home/oracle/backups/{{ origin }}/backup_{{ backup_time }}"
+    - "/home/oracle/backups/{{ target }}"
   when: inventory_hostname == origin
+
+- name: Mount target server mountpoint
+  ansible.posix.mount:
+    src: "{{ origin }}:/home/oracle/backups"
+    path: "/home/oracle/backups/{{ origin }}"
+    opts: rw,sync,hard
+    boot: true
+    state: mounted
+    fstype: nfs
+  when: inventory_hostname == target
 
 - name: Template RMAN Script using provided variables
   ansible.builtin.template:
