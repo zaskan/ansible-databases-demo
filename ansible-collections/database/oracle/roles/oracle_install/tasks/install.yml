@@ -68,7 +68,7 @@
 
   - name: Create NFS Shared directory
     ansible.builtin.file:
-      path: "/home/oracle/backups"
+      path: "/home/oracle/backups/{{ vm_hostname }}"
       state: directory
 
   - name: Set permissions
@@ -80,12 +80,12 @@
       recurse: yes
     loop:
       - "/home/oracle/files"
-      - "/home/oracle/backups"
+      - "/home/oracle/backups/{{ vm_hostname }}"
 
   - name: Create NFS exports configuration
     ansible.builtin.lineinfile:
       path: "/etc/exports"
-      line: "/home/oracle/backups *(rw,sync,no_root_squash,no_subtree_check)"
+      line: "/home/oracle/backups/{{ vm_hostname }} *(rw,sync,no_root_squash,no_subtree_check)"
       insertafter: EOF
 
   - name: Enable Services 
