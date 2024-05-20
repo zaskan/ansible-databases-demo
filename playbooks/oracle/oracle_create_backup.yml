@@ -1,0 +1,11 @@
+---
+- name: Create Oracle Backup
+  hosts: "{{ origin }}"
+  gather_facts: true
+  become: true
+  become_user: oracle
+  roles:
+    - role: database.oracle.oracle_backup
+      vars:
+        origin: "{{ origin }}"
+        target: "{{ target }}"

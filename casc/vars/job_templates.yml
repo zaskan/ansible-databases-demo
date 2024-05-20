@@ -73,3 +73,16 @@ scm_jobtemplates:
     execution_environment: "Azure Execution Environment"
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/oracle_execute_script.json') }}"
+  - name: "[JT] [Oracle] Create Backup"
+    org: "{{ default_organization | default('Default') }}"
+    inv: "Microsoft Azure"
+    project: "Ansible Databases Demo Project"
+    playbook: "playbooks/oracle/oracle_create_backup.yml"
+    creds:
+      - "RHEL Managed Hosts Credential"
+      - "Oracle HR User Credential"
+    ask_variables_on_launch: false
+    allow_simultaneous: false
+    execution_environment: "Azure Execution Environment"
+    survey_enabled: true
+    survey_spec: "{{ lookup('file', 'surveys/oracle_create_backup.json') }}"
