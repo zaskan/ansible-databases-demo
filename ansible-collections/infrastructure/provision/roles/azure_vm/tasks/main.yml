@@ -5,7 +5,7 @@
       name: "{{ vm_hostname }}"
       virtual_network: "{{ project_name }}"
       subnet: "{{ project_name }}"
-      public_ip_name: "{{ project_name }}"
+      public_ip_name: "{{ vm_hostname }}"
       security_group: "{{ project_name }}"
 
   - name: Create VM
