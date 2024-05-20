@@ -19,9 +19,7 @@
 
 - name: Execute SQL operation as Database User
   ansible.builtin.shell: |
-    source .bash_profile &&
-    sqlplus {{ lookup('ansible.builtin.env', 'ORACLE_DATABASE_USERNAME') }}/{{ lookup('ansible.builtin.env', 'ORACLE_DATABASE_PASSWORD') }} <
-    {{ script_filename }}
+    source .bash_profile && sqlplus {{ lookup('ansible.builtin.env', 'ORACLE_DATABASE_USERNAME') }}/{{ lookup('ansible.builtin.env', 'ORACLE_DATABASE_PASSWORD') }} < {{ script_filename }}
   args:
     chdir: /home/oracle
     executable: /bin/bash
