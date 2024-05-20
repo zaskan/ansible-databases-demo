@@ -85,14 +85,17 @@
   - name: Create NFS exports configuration
     ansible.builtin.lineinfile:
       path: "/etc/exports"
-      line: "/home/oracle/backups {{ hostvars[inventory_hostname]['eth0']['ipv4']['address'] | ansible.utils.ipaddr('net') }}(rw,sync,no_root_squash,no_subtree_check)"
+      line: "/home/oracle/backups *(rw,sync,no_root_squash,no_subtree_check)"
       insertafter: EOF
 
-  - name: Enable RPCBind 
+  - name: Enable Services 
     ansible.builtin.service:
-      name: rpcbind
+      name: "{{ item }}"
       state: started
       enabled: true
+    loop:
+      - rpcbind
+      - nfs-server
 
   - name: Set variables
     ansible.builtin.set_stats:
