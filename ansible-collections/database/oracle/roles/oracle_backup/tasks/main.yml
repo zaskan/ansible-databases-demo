@@ -23,6 +23,7 @@
     boot: true
     state: mounted
     fstype: nfs
+  become: true
   when: inventory_hostname == target
 
 - name: Template RMAN Script using provided variables
