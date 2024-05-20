@@ -85,7 +85,7 @@
   - name: Create NFS exports configuration
     ansible.builtin.lineinfile:
       path: "/etc/exports"
-      line: "/home/oracle/backups {{ private_ipv4_addresses.0 | ansible.utils.ipaddr('net') }}(rw,sync,no_root_squash,no_subtree_check)"
+      line: "/home/oracle/backups {{ hostvars[inventory_hostname]['private_ipv4_addresses'][0] | ansible.utils.ipaddr('net') }}(rw,sync,no_root_squash,no_subtree_check)"
       insertafter: EOF
 
   - name: Enable RPCBind 
