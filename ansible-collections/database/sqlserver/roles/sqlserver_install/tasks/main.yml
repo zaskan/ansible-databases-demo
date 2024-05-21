@@ -1,2 +1,41 @@
 ---
 # tasks file for sqlserver_install
+---
+- name: Install MSSQL
+  hosts: all
+  gather_facts: false
+  become: true
+  environment:
+    MSSQL_SA_PASSWORD: ""
+    MSSQL_PID: "express"
+    SQL_ENABLE_AGENT: "y"
+    ACCEPT_EULA: "Y"
+
+  tasks:
+
+    - name: Add Microsoft repository
+      ansible.builtin.yum_repository:
+        name: "packages-microsoft-com-mssql-server-{{ idx }}"
+        description: Microsoft MSSQL Repo
+        baseurl: https://packages.microsoft.com/rhel/8/mssql-server-2022/
+        gpgcheck: true
+        enabled: true
+        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+      loop:
+        - https://packages.microsoft.com/rhel/8/mssql-server-2022/
+        - https://packages.microsoft.com/rhel/8/prod/
+      loop_control:
+        index_var: idx
+
+    - name: Install MSSQL Installation Packages
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - mssql-server
+        - mssql-tools
+        - unixODBC-devel
+
+    - name: Set Initial Configuration for MSSQL
+      ansible.builtin.shell:
+        cmd: MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD MSSQL_PID=$MSSQL_PID /opt/mssql/bin/mssql-conf -n setup accept-eula

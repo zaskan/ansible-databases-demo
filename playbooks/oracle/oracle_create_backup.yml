@@ -1,6 +1,6 @@
 ---
 - name: Create Oracle Backup
-  hosts: all
+  hosts: "{{ origin }}:{{ target }}"
   gather_facts: true
   become: true
   become_user: oracle
