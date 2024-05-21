@@ -1,11 +1,24 @@
 ---
 # tasks file for azure_disk_resize
 
+  - name: Extend to fill all available space
+    community.general.parted:
+      device: /dev/sdb
+      number: "{{ sdb_info.partitions | length }}"
+      part_end: "100%"
+      resize: true
+      state: present
+
+  - name: Resize volume group
+    community.general.lvg:
+      vg: rootvg
+      pvs: /dev/sdb2
+
   - name: Resize partitions
     community.general.lvol:
       vg: rootvg
       lv: "{{ item }}"
-      size: +30%FREE
+      size: +20%FREE
     loop:
       - rootlv
       - tmplv
