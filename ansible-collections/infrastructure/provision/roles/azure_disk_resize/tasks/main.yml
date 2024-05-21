@@ -18,7 +18,7 @@
   - name: Resize volume group
     community.general.lvg:
       vg: rootvg
-      pvs: /dev/sdb2
+      pvs: "{{ pv_info.stdout | regex_search('/dev/[a-z]{3}[0-9]') }}"
 
   - name: Resize partitions
     community.general.lvol:
