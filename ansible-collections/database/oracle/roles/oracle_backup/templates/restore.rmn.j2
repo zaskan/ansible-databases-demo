@@ -1,2 +1,11 @@
-SHUTDOWN IMMEDIATE
-STARTUP MOUNT
+SHUTDOWN IMMEDIATE;
+STARTUP NOMOUNT;
+SET DBID #TODO Get dbid from origin ;
+RESTORE CONTROLFILE FROM "/home/oracle/backups/{{ origin }}/controlfile/{{ control_file }}";
+ALTER DATABASE MOUNT;
+RESTORE DATABASE;
+
+# TODO renombrar redo logs
+# /opt/oracle/oradata/FREE/redolog01.log
+
+ALTER DATABASE OPEN RESETLOGS;
