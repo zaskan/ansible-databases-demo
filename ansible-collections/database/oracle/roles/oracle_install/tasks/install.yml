@@ -58,13 +58,12 @@
       sslverify: false
       disable_gpg_check: true
 
-#  - name: Set Initial Configuration for Oracle
- #   ansible.builtin.shell:
-#      cmd: "/etc/init.d/{{ installation_executable }} configure"
-#    environment:
-#      ORACLE_PASSWORD: "{{ lookup('ansible.builtin.env', 'ORACLE_PASSWORD') }}"
-#    register: install_output
-#    changed_when: (install_output.rc == 0) or (install_output.rc == 1 and install_output.stdout == "There is an Oracle Database instance FREE already configured in the server.")
+  - name: Set Initial Configuration for Oracle
+    ansible.builtin.shell:
+     cmd: "/etc/init.d/{{ installation_executable }} configure"
+    environment:
+      ORACLE_PASSWORD: "{{ lookup('ansible.builtin.env', 'ORACLE_PASSWORD') }}"
+    register: install_output
 
   - name: Create NFS Shared directory
     ansible.builtin.file:
