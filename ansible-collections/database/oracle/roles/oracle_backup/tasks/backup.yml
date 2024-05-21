@@ -13,7 +13,6 @@
   loop:
     - "/home/oracle/backups/{{ origin }}/backup_{{ backup_time }}"
     - "/home/oracle/backups/{{ origin }}/controlfile"
-    - "/home/oracle/backups/{{ target }}"
   when: inventory_hostname == origin
 
 - name: Template RMAN Script using provided variables
