@@ -8,6 +8,18 @@
             "choices": "",
             "default": "",
             "required": true,
+            "variable": "vm_hostname",
+            "new_question": true,
+            "question_name": "Oracle Server",
+            "question_description": ""
+        },
+        {
+            "max": 32,
+            "min": 0,
+            "type": "text",
+            "choices": "",
+            "default": "",
+            "required": true,
             "variable": "username",
             "new_question": true,
             "question_name": "Username",

@@ -10,20 +10,8 @@
             "required": true,
             "variable": "origin",
             "new_question": true,
-            "question_name": "Origin Hostname",
+            "question_name": "Oracle Hostname",
             "question_description": "Hostname which contains the Oracle instance to be backed up"
-        },
-        {
-            "max": 32,
-            "min": 0,
-            "type": "text",
-            "choices": "",
-            "default": "",
-            "required": true,
-            "variable": "target",
-            "new_question": true,
-            "question_name": "Target Hostname",
-            "question_description": "Hostname which will store the Oracle backup"
         }
     ],
     "description": ""

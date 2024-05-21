@@ -1,0 +1,11 @@
+- name: Mount target server mountpoint
+  ansible.posix.mount:
+    src: "{{ hostvars[origin]['ansible_facts']['eth0']['ipv4']['address'] }}:/home/oracle/backups/{{ origin }}"
+    path: "/home/oracle/backups/{{ origin }}"
+    opts: rw,sync,hard
+    boot: true
+    state: mounted
+    fstype: nfs
+  become: true
+  become_user: root
+  when: inventory_hostname == target

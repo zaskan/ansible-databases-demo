@@ -2,6 +2,18 @@
     "name": "",
     "spec": [
         {
+            "max": 32,
+            "min": 0,
+            "type": "text",
+            "choices": "",
+            "default": "",
+            "required": true,
+            "variable": "vm_hostname",
+            "new_question": true,
+            "question_name": "Oracle Server",
+            "question_description": ""
+        },
+        {
             "max": 256,
             "min": 0,
             "type": "text",
