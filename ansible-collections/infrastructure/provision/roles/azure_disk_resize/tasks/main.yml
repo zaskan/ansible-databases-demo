@@ -1,13 +1,17 @@
 ---
 # tasks file for azure_disk_resize
 
+  - name: Get partitions info
+    ansible.builtin.command: "pvs"
+    register: pv_info
+
   - name: Extend to fill all available space
-    ansible.builtin.command: "growpart /dev/sdb 2"
+    ansible.builtin.command: "growpart {{ pv_info.stdout | regex_search('/dev/[a-z]{3}') }} {{ pv_info.stdout | regex_search('/dev/[a-z]{3}[0-9]') | regex_search('[0-9]') }}" 
     register: partition_output
     changed_when: partition_output.rc == 0
 
-  - name: Extend Physuical Volume
-    ansible.builtin.command: "pvresize /dev/sdb2"
+  - name: Extend Physical Volume
+    ansible.builtin.command: "pvresize {{ pv_info.stdout | regex_search('/dev/[a-z]{3}[0-9]') }}"
     register: pv_output
     changed_when: pv_output.rc == 0
 
