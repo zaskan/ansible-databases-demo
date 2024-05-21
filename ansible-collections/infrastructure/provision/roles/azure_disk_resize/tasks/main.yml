@@ -1,16 +1,15 @@
 ---
 # tasks file for azure_disk_resize
-  - name: Read device information
-    community.general.parted: device=/dev/sdb unit=MiB
-    register: sdb_info
 
   - name: Extend to fill all available space
-    community.general.parted:
-      device: /dev/sdb
-      number: "{{ sdb_info.partitions | length }}"
-      part_end: "100%"
-      resize: true
-      state: present
+    ansible.builtin.command: "growpart /dev/sdb 2"
+    register: partition_output
+    changed_when: partition_output.rc == 0
+
+  - name: Extend Physuical Volume
+    ansible.builtin.command: "pvresize /dev/sdb2"
+    register: pv_output
+    changed_when: pv_output.rc == 0
 
   - name: Resize volume group
     community.general.lvg:
