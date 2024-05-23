@@ -65,6 +65,10 @@
 
 - name: Update Controller's Restore Job Template
   ansible.controller.job_template:
+    controller_host: "https://{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}"
+    controller_username: "{{ lookup('ansible.builtin.env', 'CONTROLLER_USERNAME') }}"
+    controller_password: "{{ lookup('ansible.builtin.env', 'CONTROLLER_PASSWORD') }}"
+    validate_certs: false
     name: "[JT] [Oracle] Create Backup"
     job_type: "run"
     organization: "databasedemo"
@@ -80,7 +84,3 @@
     survey_spec: "{{ survey }}"
     state: present
   when: inventory_hostname == origin
-  environment:
-    CONTROLLER_HOST: "https://{{ aap_host }}"
-    CONTROLLER_USERNAME: "{{ aap_user }}"
-    CONTROLLER_PASSWORD: "{{ aap_pass }}"
