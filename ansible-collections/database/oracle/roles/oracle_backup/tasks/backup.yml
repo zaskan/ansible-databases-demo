@@ -69,7 +69,7 @@
     controller_username: "{{ lookup('ansible.builtin.env', 'CONTROLLER_USERNAME') }}"
     controller_password: "{{ lookup('ansible.builtin.env', 'CONTROLLER_PASSWORD') }}"
     validate_certs: false
-    name: "[JT] [Oracle] Create Backup"
+    name: "[JT] [Oracle] Restore Backup"
     job_type: "run"
     organization: "databasedemo"
     inventory: "Microsoft Azure"
