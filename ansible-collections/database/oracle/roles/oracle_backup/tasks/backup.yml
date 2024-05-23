@@ -60,7 +60,8 @@
 
 - name: Set list
   ansible.builtin.set_fact:
-    test: "{{ ansible_play_hosts | map('extract', hostvars, 'files') | map(attribute='files') | list }}"
+    backups: "{{ ansible_play_hosts | map('extract', hostvars, 'files') | map(attribute='files') | list }}"
+  run_once: true
 
 - name: Update Restore Job Template with New Backups
   ansible.builtin.set_stats:
