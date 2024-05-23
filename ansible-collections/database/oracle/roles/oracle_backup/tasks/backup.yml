@@ -58,7 +58,7 @@
   register: files
 
 - name: Update Restore Job Template with New Backups
-- ansible.builtin.template:
+  ansible.builtin.template:
     src: restore_survey.json.j2
     dest: /tmp/restore_survey.json
   when: inventory_hostname == origin
