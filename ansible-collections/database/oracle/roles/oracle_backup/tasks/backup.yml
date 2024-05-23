@@ -60,10 +60,8 @@
 - debug: msg="{{ files }}"
 
 - name: Update Restore Job Template with New Backups
-  ansible.builtin.template:
-    src: restore_survey.json.j2
-    dest: /tmp/restore_survey.json
-  when: inventory_hostname == origin
+  ansible.builtin.set_fact:
+    survey: "{{ lookup('ansible.builtin.template', 'restore_survey.json.j2') }}"
 
 - name: Update Controller's Restore Job Template
   ansible.controller.job_template:
@@ -79,6 +77,10 @@
     execution_environment: "Azure Execution Environment"
     limit: db_oracle
     survey_enabled: true
-    survey_spec: "{{ lookup('ansible.builtin.template', 'restore_survey.json.j2') }}"
+    survey_spec: "{{ survey }}"
     state: present
   when: inventory_hostname == origin
+  environment:
+    CONTROLLER_HOST: "https://{{ aap_host }}"
+    CONTROLLER_USERNAME: "{{ aap_user }}"
+    CONTROLLER_PASSWORD: "{{ aap_pass }}"
