@@ -58,7 +58,10 @@
       - '^backup_*'
   register: files
 
-- debug: msg="{{ ansible_play_hosts | map('extract', hostvars, 'files') | map(attribute='files') | list }}"
+- name: Compose list of backups
+  ansible.builtin.set_fact:
+    files: "{{ ansible_play_hosts | map('extract', hostvars, 'files') | map(attribute='files') | list }}"
+  run_once: true
 
 - name: Update Restore Job Template with New Backups
   ansible.builtin.set_stats:
