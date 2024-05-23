@@ -1,2 +1,15 @@
 ---
 # vars file for oracle_backup
+- name: "[JT] [Oracle] Restore Backup"
+  org: "{{ default_organization | default('Default') }}"
+  inv: "Microsoft Azure"
+  project: "Ansible Databases Demo Project"
+  playbook: "playbooks/oracle/oracle_restore_backup.yml"
+  creds:
+    - "RHEL Managed Hosts Credential"
+    - "Oracle HR User Credential"
+  ask_variables_on_launch: false
+  allow_simultaneous: false
+  execution_environment: "Azure Execution Environment"
+  survey_enabled: true
+  survey_spec: "{{ lookup('file', '/tmp/restore_survey.json') }}"

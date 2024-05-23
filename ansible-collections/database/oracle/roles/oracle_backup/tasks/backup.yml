@@ -12,7 +12,20 @@
     mode: '0755'
   loop:
     - "/home/oracle/backups/{{ origin }}/backup_{{ backup_time }}"
-    - "/home/oracle/backups/{{ origin }}/controlfile"
+    - "/home/oracle/backups/{{ origin }}/backup_{{ backup_time }}/controlfile"
+  when: inventory_hostname == origin
+
+- name: Get DBId
+  ansible.builtin.command: "echo 'select DBID from v$database;' | sqlplus -s / as sysdba | grep ^[0-9]*[0-9]$"
+  register: dbid
+  changed_when: dbid.rc == 0
+  when: inventory_hostname == origin
+
+- name: Store DBId
+  ansible.builtin.lineinfile:
+    path: "/home/oracle/backups/{{ origin }}/backup_{{ backup_time }}/dbid"
+    line: "{{ dbid.stdout }}"
+    create: true
   when: inventory_hostname == origin
 
 - name: Template RMAN Script using provided variables
@@ -31,4 +44,39 @@
   register: backup_result
   changed_when: "backup_result.rc == 0"
   failed_when: "backup_result.rc != 0"
+  when: inventory_hostname == origin
+
+- name: Find Current backups
+  ansible.builtin.find:
+    paths: 
+      - /home/oracle/backups/
+    file_type: directory
+    recurse: yes
+    use_regex: yes
+    patterns:
+      - '^backup_*'
+  register: files
+
+- name: Update Restore Job Template with New Backups
+- ansible.builtin.template:
+    src: restore_survey.json.j2
+    dest: /tmp/restore_survey.json
+  when: inventory_hostname == origin
+
+- name: Update Controller's Restore Job Template
+  ansible.controller.job_template:
+    name: "[JT] [Oracle] Create Backup"
+    job_type: "run"
+    organization: "databasedemo"
+    inventory: "Microsoft Azure"
+    project: "Ansible Databases Demo Project"
+    playbook: "{{ item.playbook }}"
+    credentials: 
+      - "Oracle Database User Credential"
+      - "RHEL Managed Hosts Credential"
+    execution_environment: "Azure Execution Environment"
+    limit: db_oracle
+    survey_enabled: true
+    survey_spec: "/tmp/restore_survey.json"
+    state: present
   when: inventory_hostname == origin

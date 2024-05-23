@@ -1,0 +1,10 @@
+# TODO renombrar redo logs si el nodo es diferente
+# /opt/oracle/oradata/FREE/redolog01.log
+
+SHUTDOWN IMMEDIATE;
+STARTUP NOMOUNT;
+SET DBID {{ lookup('ansible.builtin.file', '/home/oracle/backups/{{ origin }}/ ;
+RESTORE CONTROLFILE FROM "/home/oracle/backups/{{ origin }}/controlfile/{{ control_file }}";
+ALTER DATABASE MOUNT; 
+RESTORE DATABASE;
+ALTER DATABASE OPEN RESETLOGS;

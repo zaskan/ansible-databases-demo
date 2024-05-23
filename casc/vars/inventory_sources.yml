@@ -8,3 +8,6 @@ inventory_sources:
      vars:
         hostnames:
            - tags.inventory_name
+        keyed_groups:
+           - prefix: db
+             key: location

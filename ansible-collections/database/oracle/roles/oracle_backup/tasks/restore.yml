@@ -1,3 +1,6 @@
+---
+
+
 - name: Mount target server mountpoint
   ansible.posix.mount:
     src: "{{ hostvars[origin]['ansible_facts']['eth0']['ipv4']['address'] }}:/home/oracle/backups/{{ origin }}"
@@ -8,4 +11,15 @@
     fstype: nfs
   become: true
   become_user: root
+  when: inventory_hostname == target
+
+- name: Get DB id
+  ansible.buil
+
+- name: Template RMAN Script using provided variables
+  ansible.builtin.template:
+    src: "restore.rmn.j2"
+    dest: "/tmp/restore.rman"
+    mode: "0755"
+  register: backup_script
   when: inventory_hostname == target

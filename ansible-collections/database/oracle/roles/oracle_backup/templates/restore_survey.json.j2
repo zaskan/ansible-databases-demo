@@ -1,0 +1,33 @@
+{
+    "name": "",
+    "spec": [
+        {
+            "max": 1024,
+            "min": 0,
+            "type": "multiplechoice",
+            "choices": [{%- for file in files.files if file != '' %}
+                {{ "\n                " if loop.first }}"{{ ansible_host }} | {{ file.path | basename | trim }}"{{ "," if not loop.last }}
+{% endfor %}
+            ],
+            "default": "",
+            "required": true,
+            "variable": "backup",
+            "new_question": true,
+            "question_name": "Backup",
+            "question_description": "Backup to restore"
+        }
+        ,{
+            "max": 1024,
+            "min": 0,
+            "type": "text",
+            "choices": "",
+            "default": "",
+            "required": true,
+            "variable": "target",
+            "new_question": true,
+            "question_name": "Target Server",
+            "question_description": "Target Server to Restore the backup"
+        }
+    ],
+    "description": ""
+}

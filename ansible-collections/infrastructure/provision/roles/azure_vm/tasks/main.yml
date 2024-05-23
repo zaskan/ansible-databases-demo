@@ -27,6 +27,7 @@
         version: "{{ version }}" # Example: latest
       tags:
         inventory_name: "{{ vm_hostname }}"
+        db: oracle
 
   - name: Update Inventory Source
     ansible.controller.inventory_source_update:
