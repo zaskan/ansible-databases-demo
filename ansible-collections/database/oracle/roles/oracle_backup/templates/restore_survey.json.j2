@@ -6,7 +6,7 @@
             "min": 0,
             "type": "multiplechoice",
             "choices": [{%- for file in backups if file != '' %}
-                {{ "\n                " if loop.first }}"{{ inventory_hostname }} | {{ file }}"{{ "," if not loop.last }}
+                {{ "\n                " if loop.first }}"{{ file }}"{{ "," if not loop.last }}
 {% endfor %}
             ],
             "default": "",
