@@ -48,34 +48,35 @@ scm_workflowjobtemplates:
            credentials: []
   - name: "[WF] [Oracle] Create Backup"
     org: "{{ default_organization | default('Default') }}"
+    inv: ""
     ask_variables_on_launch: false
     ask_limit_on_launch: false
     allow_simultaneous: false
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/oracle_create_backup.json') }}"
     steps:
-      - identifier: Create Backup
-        unified_job_template:
-          organization:
-            name: "{{ default_organization | default('Default') }}"
-          name: "[JT] [Oracle] Create Backup"
-          type: job_template
-        credentials: []
-        related:
-          success_nodes:
-            - identifier: "Update Restore Job"
-          failure_nodes: []
-          always_nodes: []
-          credentials: []
-      - identifier: Update Restore Job
-        unified_job_template:
-          organization:
-            name: "{{ default_organization | default('Default') }}"
-          name: "[JT] [Oracle] Update Restore Job Template"
-          type: job_template
-        credentials: []
-        related:
-          success_nodes:
-          failure_nodes: []
-          always_nodes: []
-          credentials: []
+       - identifier: Create Backup
+         unified_job_template:
+           organization:
+             name: "{{ default_organization | default('Default') }}"
+           name: "[JT] [Oracle] Create Backup"
+           type: job_template
+         credentials: []
+         related:
+           success_nodes:
+             - identifier: "Update Restore Job"
+           failure_nodes: []
+           always_nodes: []
+           credentials: []
+       - identifier: Update Restore Job
+         unified_job_template:
+           organization:
+             name: "{{ default_organization | default('Default') }}"
+           name: "[JT] [Oracle] Update Restore Job Template"
+           type: job_template
+         credentials: []
+         related:
+           success_nodes: []
+           failure_nodes: []
+           always_nodes: []
+           credentials: []

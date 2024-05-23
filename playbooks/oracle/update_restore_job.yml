@@ -23,4 +23,3 @@
         survey_enabled: true
         survey_spec: "{{ survey }}"
         state: present
-      when: inventory_hostname == origin
