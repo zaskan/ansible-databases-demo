@@ -79,6 +79,6 @@
     execution_environment: "Azure Execution Environment"
     limit: db_oracle
     survey_enabled: true
-    survey_spec: "{{ lookup('file', '/tmp/restore_survey.json') }}"
+    survey_spec: "{{ lookup('ansible.builtin.template', 'restore_survey.json.j2') }}"
     state: present
   when: inventory_hostname == origin
