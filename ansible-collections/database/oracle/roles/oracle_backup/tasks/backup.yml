@@ -26,6 +26,7 @@
     path: "/home/oracle/backups/{{ origin }}/backup_{{ backup_time }}/dbid"
     line: "{{ dbid.stdout }}"
     create: true
+    mode: "0755"
   when: inventory_hostname == origin
 
 - name: Template RMAN Script using provided variables
@@ -48,11 +49,11 @@
 
 - name: Find Current backups
   ansible.builtin.find:
-    paths: 
+    paths:
       - /home/oracle/backups/
     file_type: directory
-    recurse: yes
-    use_regex: yes
+    recurse: true
+    use_regex: true
     patterns:
       - '^backup_*'
   register: files
@@ -75,7 +76,7 @@
     inventory: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
     playbook: "playbooks/oracle/oracle_restore_backup.yml"
-    credentials: 
+    credentials:
       - "Oracle Database User Credential"
       - "RHEL Managed Hosts Credential"
     execution_environment: "Azure Execution Environment"
@@ -84,4 +85,5 @@
     survey_spec: "{{ survey }}"
     state: present
   when: inventory_hostname == origin
+  become: true
   delegate_to: localhost
