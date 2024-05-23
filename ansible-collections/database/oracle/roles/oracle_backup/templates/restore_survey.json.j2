@@ -5,8 +5,8 @@
             "max": 1024,
             "min": 0,
             "type": "multiplechoice",
-            "choices": [{%- for file in files.files if file != '' %}
-                {{ "\n                " if loop.first }}"{{ inventory_hostname }} | {{ file.path | basename | trim }}"{{ "," if not loop.last }}
+            "choices": [{%- for file in backups if file != '' %}
+                {{ "\n                " if loop.first }}"{{ inventory_hostname }} | {{ file }}"{{ "," if not loop.last }}
 {% endfor %}
             ],
             "default": "",
