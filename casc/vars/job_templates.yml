@@ -25,7 +25,6 @@ scm_jobtemplates:
     ask_variables_on_launch: true
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
-    limit: db_oracle
   - name: "[JT] [Oracle] Deploy Oracle"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
@@ -37,7 +36,6 @@ scm_jobtemplates:
     ask_variables_on_launch: true
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
-    limit: db_oracle
   - name: "[JT] [Oracle] Create User"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
@@ -50,7 +48,6 @@ scm_jobtemplates:
     execution_environment: "Azure Execution Environment"
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/oracle_new_user.json') }}"
-    limit: db_oracle
   - name: "[JT] [Oracle] Grant Roles to Database User"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
@@ -63,7 +60,6 @@ scm_jobtemplates:
     execution_environment: "Azure Execution Environment"
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/oracle_grant_role.json') }}"
-    limit: db_oracle
   - name: "[JT] [Oracle] Execute Script"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
