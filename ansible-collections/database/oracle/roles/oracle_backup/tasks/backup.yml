@@ -70,7 +70,7 @@
     organization: "databasedemo"
     inventory: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "{{ item.playbook }}"
+    playbook: "playbooks/oracle/oracle_restore_backup.yml"
     credentials: 
       - "Oracle Database User Credential"
       - "RHEL Managed Hosts Credential"
