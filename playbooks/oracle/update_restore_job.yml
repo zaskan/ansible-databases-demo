@@ -16,7 +16,7 @@
         project: "Ansible Databases Demo Project"
         playbook: "playbooks/oracle/oracle_restore_backup.yml"
         credentials:
-          - "Oracle Database User Credential"
+          - "Oracle HR User Credential"
           - "RHEL Managed Hosts Credential"
         execution_environment: "Azure Execution Environment"
         limit: db_oracle
