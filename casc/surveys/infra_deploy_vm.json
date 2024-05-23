@@ -31,6 +31,21 @@
             "question_description": ""
         },
         {
+            "max": 1024,
+            "min": 0,
+            "type": "multiplechoice",
+            "choices": [
+                "oracle",
+                "sqlserver"
+            ],
+            "default": "",
+            "required": true,
+            "variable": "db",
+            "new_question": false,
+            "question_name": "Database to install",
+            "question_description": ""
+        },
+        {
             "max": 32,
             "min": 0,
             "type": "text",

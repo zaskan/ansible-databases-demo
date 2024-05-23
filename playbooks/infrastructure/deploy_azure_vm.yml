@@ -9,3 +9,4 @@
         os_type: "{{ os_type }}" # Example: Linux
         vm_hostname: "{{ vm_hostname }}"
         vm_size: "{{ vm_size }}" # Example: Standard_DS1_v2
+        db: "{{ db  }}"
