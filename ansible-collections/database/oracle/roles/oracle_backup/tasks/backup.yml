@@ -57,6 +57,8 @@
       - '^backup_*'
   register: files
 
+- debug: msg="{{ files }}"
+
 - name: Update Restore Job Template with New Backups
   ansible.builtin.template:
     src: restore_survey.json.j2
