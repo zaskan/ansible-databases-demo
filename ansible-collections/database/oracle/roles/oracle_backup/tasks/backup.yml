@@ -86,4 +86,4 @@
     state: present
   when: inventory_hostname == origin
   become: true
-  delegate_to: localhost
+  connection: local
