@@ -1,0 +1,26 @@
+---
+- name: Update Oracle Restore Job
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Update Controller's Restore Job Template
+      ansible.controller.job_template:
+        controller_host: "https://{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}"
+        controller_username: "{{ lookup('ansible.builtin.env', 'CONTROLLER_USERNAME') }}"
+        controller_password: "{{ lookup('ansible.builtin.env', 'CONTROLLER_PASSWORD') }}"
+        validate_certs: false
+        name: "[JT] [Oracle] Restore Backup"
+        job_type: "run"
+        organization: "databasedemo"
+        inventory: "Microsoft Azure"
+        project: "Ansible Databases Demo Project"
+        playbook: "playbooks/oracle/oracle_restore_backup.yml"
+        credentials:
+          - "Oracle Database User Credential"
+          - "RHEL Managed Hosts Credential"
+        execution_environment: "Azure Execution Environment"
+        limit: db_oracle
+        survey_enabled: true
+        survey_spec: "{{ survey }}"
+        state: present
+      when: inventory_hostname == origin

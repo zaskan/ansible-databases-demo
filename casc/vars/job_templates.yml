@@ -89,3 +89,13 @@ scm_jobtemplates:
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/oracle_create_backup.json') }}"
     limit: db_oracle
+  - name: "[JT] [Oracle] Update Restore Job Template"
+    org: "{{ default_organization | default('Default') }}"
+    inv: "Automation Controller Inventory"
+    project: "Ansible Databases Demo Project"
+    playbook: "playbooks/oracle/update_restore_job.yml"
+    creds:
+      - "Red Hat Ansible Automation Platform Credential"
+    ask_variables_on_launch: false
+    allow_simultaneous: false
+    execution_environment: "Default execution environment"
