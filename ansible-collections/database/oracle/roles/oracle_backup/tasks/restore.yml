@@ -101,8 +101,8 @@
 
 - name: Rename redologs
   ansible.builtin.file:
-    src: "{{ item }}"
-    dest: "{{ item }}.old"
+    src: "{{ item.path }}"
+    dest: "{{ item.path }}.old"
     state: link
     force: true
   loop: "{{ redologs.files }}"
