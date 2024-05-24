@@ -51,12 +51,19 @@
   when:
     - inventory_hostname == target
 
-- name: Set dbid
-  ansible.builtin.set_fact:
-    dbid: "{{ lookup('file', '/home/oracle/backups/' + backup + '/dbid') }}"
+- name: Get dbid content
+  ansible.builtin.slurp:
+    src: "/home/oracle/backups/{{ backup }}/dbid"
+  register: dbid
   when:
     - inventory_hostname == target
     - local is not defined
+
+- name: Set dbid
+  ansible.builtin.set_fact:
+    dbid: "{{ dbid['content'] | b64decode }}"
+  when:
+    - inventory_hostname == target
 
 - name: Template RMAN Script using provided variables for local restore
   ansible.builtin.template:
@@ -64,7 +71,7 @@
     dest: "/tmp/restore.rman"
     mode: "0755"
   register: backup_script
-  when: 
+  when:
     - inventory_hostname == target
     - local is defined
 
@@ -74,7 +81,7 @@
     dest: "/tmp/restore.rman"
     mode: "0755"
   register: backup_script
-  when: 
+  when:
     - inventory_hostname == target
     - local is not defined
 
@@ -97,7 +104,7 @@
     src: "{{ item }}"
     dest: "{{ item }}.old"
     state: link
-    force: yes
+    force: true
   loop: "{{ redologs.files }}"
   when:
     - inventory_hostname == target
