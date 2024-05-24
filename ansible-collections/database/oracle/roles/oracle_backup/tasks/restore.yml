@@ -88,7 +88,7 @@
 - name: Find Redologs when the target is remote
   ansible.builtin.find:
     paths:
-      - /home/oracle/backups/{{ backup }}
+      - /opt/oracle/oradata/FREE/
     file_type: file
     recurse: true
     use_regex: true
