@@ -14,7 +14,7 @@
 
 - name: Mount target server mountpoint
   ansible.posix.mount:
-    src: "{{ hostvars[origin]['ansible_facts']['eth0']['ipv4']['address'] }}:/home/oracle/backups/{{ origin }}"
+    src: "{{ hostvars[origin]['private_ipv4_addresses'][0] }}:/home/oracle/backups/{{ origin }}"
     path: "/home/oracle/backups/{{ origin }}"
     opts: rw,sync,hard
     boot: true
