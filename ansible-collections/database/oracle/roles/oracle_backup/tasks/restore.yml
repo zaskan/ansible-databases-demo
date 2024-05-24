@@ -85,11 +85,13 @@
   when:
     - inventory_hostname == target
 
-
-
-# TODO renombrar redo logs si el nodo es diferente
-# /opt/oracle/oradata/FREE/redolog01.log
-
+- name: Rename redologs
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ item }}.old"
+    state: link
+    force: yes
+  loop: "{{ redologs.files }}"
 
 - name: Execute RMAN operation
   ansible.builtin.shell: "source .bash_profile && rman target / nocatalog < {{ backup_script.dest }} log=full_back.log"
