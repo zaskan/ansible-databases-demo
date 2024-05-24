@@ -6,6 +6,20 @@
     - "target in backup"
     - inventory_hostname == target
 
+- name: Mount target server mountpoint
+  ansible.posix.mount:
+    src: "{{ hostvars[origin]['ansible_facts']['eth0']['ipv4']['address'] }}:/home/oracle/backups/{{ origin }}"
+    path: "/home/oracle/backups/{{ origin }}"
+    opts: rw,sync,hard
+    boot: true
+    state: mounted
+    fstype: nfs
+  become: true
+  become_user: root
+  when: 
+    - inventory_hostname == target
+    - local is not defined
+    
 - name: Get origin hostname
   ansible.builtin.set_fact:
     origin: "{{ backup.split('/')[1] }}"
@@ -35,20 +49,6 @@
   ansible.builtin.set_fact:
     dbid: "{{ lookup('file', '/home/oracle/backups/' + backup + '/dbid') }}"
   when:
-    - inventory_hostname == target
-    - local is not defined
-
-- name: Mount target server mountpoint
-  ansible.posix.mount:
-    src: "{{ hostvars[origin]['ansible_facts']['eth0']['ipv4']['address'] }}:/home/oracle/backups/{{ origin }}"
-    path: "/home/oracle/backups/{{ origin }}"
-    opts: rw,sync,hard
-    boot: true
-    state: mounted
-    fstype: nfs
-  become: true
-  become_user: root
-  when: 
     - inventory_hostname == target
     - local is not defined
 
