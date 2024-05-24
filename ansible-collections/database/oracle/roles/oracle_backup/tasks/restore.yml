@@ -84,6 +84,7 @@
   register: redologs
   when:
     - inventory_hostname == target
+    - local is not defined
 
 - name: Rename redologs
   ansible.builtin.file:
@@ -92,6 +93,9 @@
     state: link
     force: yes
   loop: "{{ redologs.files }}"
+  when:
+    - inventory_hostname == target
+    - local is not defined
 
 - name: Execute RMAN operation
   ansible.builtin.shell: "source .bash_profile && rman target / nocatalog < {{ backup_script.dest }} log=full_back.log"
