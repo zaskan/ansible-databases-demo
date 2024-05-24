@@ -60,13 +60,7 @@
 
 - name: Get paths
   ansible.builtin.set_fact:
-    paths: "{{ ansible_play_hosts | map('extract', hostvars, 'files') | map(attribute='files') | flatten | map(attribute='path') | flatten }}"
-    keep: 2
-  run_once: true
-  
-- name: Build list of Backups
-  ansible.builtin.set_fact:
-    backups: "{{ paths.split('/') | slice(-keep) | join('/') }}"
+    backups: "{{ ansible_play_hosts | map('extract', hostvars, 'files') | map(attribute='files') | flatten | map(attribute='path') | flatten | map('regex_replace', '^.*/', '') | list }}"
     keep: 2
   run_once: true
 
