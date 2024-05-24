@@ -13,8 +13,8 @@
     - inventory_hostname == target
 
 - name: Get origin IP
-  ansible.builtin.shell: "host {{ origin }} |awk '{match($0,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/); ip = substr($0,RSTART,RLENGTH); print ip}'"
-  register: "{{ origin_ip }}"
+  ansible.builtin.shell: "host {{ origin }} | awk '{match($0,/[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+/); ip = substr($0,RSTART,RLENGTH); print ip}'"
+  register: origin_ip
   when:
     - inventory_hostname == target
 
