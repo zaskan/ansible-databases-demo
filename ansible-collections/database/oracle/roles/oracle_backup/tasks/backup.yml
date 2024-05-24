@@ -16,7 +16,7 @@
   when: inventory_hostname == origin
 
 - name: Get DBId
-  ansible.builtin.shell: "echo 'select DBID from v$database;' | sqlplus -s / as sysdba | grep ^[0-9]*[0-9]$"
+  ansible.builtin.shell: "echo 'select DBID from v$database;' | /opt/oracle/product/23c/dbhomeFree/bin/sqlplus -s / as sysdba | grep ^[0-9]*[0-9]$"
   register: dbid
   changed_when: dbid.rc == 0
   when: inventory_hostname == origin
