@@ -27,7 +27,7 @@
 
 - name: Set controlfile
   ansible.builtin.set_fact:
-    controlfile: "{{ controlfile.path }}"
+    controlfile: "{{ controlfile.files }}"
   when:
     - inventory_hostname == target
 
