@@ -99,12 +99,21 @@
     - inventory_hostname == target
     - local is not defined
 
-- name: Rename redologs
-  ansible.builtin.file:
+- name: Backup Original Redo files
+  ansible.builtin.copy:
     src: "{{ item.path }}"
     dest: "{{ item.path }}.old"
-    state: link
-    force: true
+    mode: "0755"
+    remote_src: true
+  loop: "{{ redologs.files }}"
+  when:
+    - inventory_hostname == target
+    - local is not defined
+
+- name: Delete Original Redo files
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
   loop: "{{ redologs.files }}"
   when:
     - inventory_hostname == target
