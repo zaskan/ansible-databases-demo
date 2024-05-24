@@ -8,7 +8,7 @@
 
 - name: Get origin hostname
   ansible.builtin.set_fact:
-    origin: "{{ backup.split('/')[1] }}"
+    origin: "{{ backup.split('/')[0] }}"
   when:
     - inventory_hostname == target
 
@@ -28,7 +28,7 @@
     fstype: nfs
   become: true
   become_user: root
-  when: 
+  when:
     - inventory_hostname == target
     - local is not defined
 
