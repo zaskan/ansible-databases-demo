@@ -60,8 +60,7 @@
 
 - name: Get paths
   ansible.builtin.set_fact:
-    backups: "{{ ansible_play_hosts | map('extract', hostvars, 'files') | map(attribute='files') | flatten | map(attribute='path') | flatten | map('regex_replace', '^.*/', '') | list }}"
-    keep: 2
+    backups: "{{ ansible_play_hosts | map('extract', hostvars, 'files') | map(attribute='files') | flatten | map(attribute='path') | flatten | map('regex_replace', '^.*/([^/]+/[^/]+)$', '\\1') | list }}"
   run_once: true
 
 - name: Update Restore Job Template with New Backups
