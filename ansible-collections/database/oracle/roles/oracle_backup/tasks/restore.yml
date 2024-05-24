@@ -6,6 +6,12 @@
     - "target in backup"
     - inventory_hostname == target
 
+- name: Get origin hostname
+  ansible.builtin.set_fact:
+    origin: "{{ backup.split('/')[1] }}"
+  when:
+    - inventory_hostname == target
+
 - name: Mount target server mountpoint
   ansible.posix.mount:
     src: "{{ hostvars[origin]['ansible_facts']['eth0']['ipv4']['address'] }}:/home/oracle/backups/{{ origin }}"
@@ -19,12 +25,6 @@
   when: 
     - inventory_hostname == target
     - local is not defined
-    
-- name: Get origin hostname
-  ansible.builtin.set_fact:
-    origin: "{{ backup.split('/')[1] }}"
-  when:
-    - inventory_hostname == target
 
 - name: Find Controlfile
   ansible.builtin.find:
