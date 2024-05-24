@@ -33,7 +33,7 @@
 
 - name: Set dbid
   ansible.builtin.set_fact:
-    dbid: "{{ lookup('file', '/home/oracle/backups/{{ backup }}/dbid"
+    dbid: "{{ lookup('file', '/home/oracle/backups/' + backup + '/dbid') }}"
   when:
     - inventory_hostname == target
     - local is not defined
@@ -98,7 +98,7 @@
     - local is not defined
 
 - name: Execute RMAN operation
-  ansible.builtin.shell: "source .bash_profile && rman target / nocatalog < {{ backup_script.dest }} log=full_back.log"
+  ansible.builtin.shell: "source .bash_profile && rman target / nocatalog < /tmp/restore.rman log=full_back.log"
   args:
     chdir: /home/oracle
     executable: /bin/bash
