@@ -12,9 +12,15 @@
   when:
     - inventory_hostname == target
 
+- name: Get origin IP
+  ansible.builtin.shell: "host {{ origin }} |awk '{match($0,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/); ip = substr($0,RSTART,RLENGTH); print ip}'"
+  register: "{{ origin_ip }}"
+  when:
+    - inventory_hostname == target
+
 - name: Mount target server mountpoint
   ansible.posix.mount:
-    src: "{{ hostvars[origin]['private_ipv4_addresses'][0] }}:/home/oracle/backups/{{ origin }}"
+    src: "{{ origin_ip.stdout }}:/home/oracle/backups/{{ origin }}"
     path: "/home/oracle/backups/{{ origin }}"
     opts: rw,sync,hard
     boot: true
