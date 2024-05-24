@@ -1,8 +1,12 @@
 ---
-- name: Create Oracle Backup
+- name: Restore Oracle Backup
   hosts: all
   gather_facts: true
-  tasks:
-    - name: Test
-      ansible.builtin.debug:
-        msg: "Hello World"
+  become: true
+  become_user: oracle
+  roles:
+    - role: database.oracle.oracle_backup
+      vars:
+        operation: restore
+        backup: "{{ backup }}"
+        target: "{{ target }}"

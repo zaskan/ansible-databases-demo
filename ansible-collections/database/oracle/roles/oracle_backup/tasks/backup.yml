@@ -16,7 +16,7 @@
   when: inventory_hostname == origin
 
 - name: Get DBId
-  ansible.builtin.command: "echo 'select DBID from v$database;' | sqlplus -s / as sysdba | grep ^[0-9]*[0-9]$"
+  ansible.builtin.shell: "echo 'select DBID from v$database;' | sqlplus -s / as sysdba | grep ^[0-9]*[0-9]$"
   register: dbid
   changed_when: dbid.rc == 0
   when: inventory_hostname == origin
@@ -60,6 +60,7 @@
 
 - name: Get paths
   ansible.builtin.set_fact:
+    # yamllint disable
     backups: "{{ ansible_play_hosts | map('extract', hostvars, 'files') | map(attribute='files') | flatten | map(attribute='path') | flatten | map('regex_replace', '^.*/([^/]+/[^/]+)$', '\\1') | list }}"
   run_once: true
 
