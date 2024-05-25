@@ -1,3 +1,3 @@
-{%- for role in roles if file != '' %}
-EXEC sp_addrolemember N'{{ user_roles }}', N'{{ username }}';
+{%- for role in user_roles if file != '' %}
+EXEC sp_addrolemember N'{{ role }}', N'{{ username }}';
 {% endfor %}
