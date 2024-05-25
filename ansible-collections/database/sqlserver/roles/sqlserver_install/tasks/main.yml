@@ -82,3 +82,9 @@
       path: "/root/.bashrc"
       regexp: '^PATH=$PATH'
       create: true
+
+  - name: Copy Scripts
+    ansible.builtin.copy: 
+      src: files
+      dest: /tmp
+    become: false
