@@ -48,15 +48,12 @@
 
   - name: Add Microsoft repository
     ansible.builtin.yum_repository:
-      name: "packages-microsoft-com-mssql-tools"
-      description: Microsoft MSSQL Repo
-      baseurl: https://packages.microsoft.com/rhel/8/mssql-server-2022/
+      name: "packages-microsoft-com-prod"
+      baseurl: https://packages.microsoft.com/rhel/8/prod/
       gpgcheck: true
       enabled: true
       state: present
       gpgkey: https://packages.microsoft.com/keys/microsoft.asc
-    loop:
-      - https://packages.microsoft.com/config/rhel/8/prod
 
   - name: Install MSSQL Tools Packages
     ansible.builtin.dnf:
