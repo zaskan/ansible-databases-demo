@@ -7,10 +7,12 @@
   register: sql_script
 
 - name: Execute SQL operation as SA User
-  ansible.builtin.shell: "sqlcmd -C -S localhost -U SA -P '{{ lookup('ansible.builtin.env', 'MSSQL_PASSWORD') }}' -i  {{ sql_script.dest }} -b"
+  ansible.builtin.shell: "sqlcmd -C -S localhost -U SA -i  {{ sql_script.dest }} -b"
   args:
     executable: /bin/bash
   register: query_result
+  environment:
+    SQLCMDPASSWORD: "{{ lookup('ansible.builtin.env', 'MSSQL_PASSWORD') }}"
   changed_when: "query_result.rc == 0"
   failed_when: "query_result.rc != 0"
 
