@@ -49,6 +49,7 @@
   - name: Add Microsoft repository
     ansible.builtin.yum_repository:
       name: "packages-microsoft-com-prod"
+      description: Microsoft MSSQL Tools Repo
       baseurl: https://packages.microsoft.com/rhel/8/prod/
       gpgcheck: true
       enabled: true
