@@ -26,7 +26,6 @@
     loop:
       - https://packages.microsoft.com/rhel/8/mssql-server-2022/
       - https://packages.microsoft.com/rhel/8/prod
-
     loop_control:
       index_var: idx
 
@@ -48,7 +47,7 @@
 
   - name: Add Microsoft repository
     ansible.builtin.yum_repository:
-      name: "packages-microsoft-com-mssql-server-{{ idx }}"
+      name: "packages-microsoft-com-mssql-tools"
       description: Microsoft MSSQL Repo
       baseurl: https://packages.microsoft.com/rhel/8/mssql-server-2022/
       gpgcheck: true
