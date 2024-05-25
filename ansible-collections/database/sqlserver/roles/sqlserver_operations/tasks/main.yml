@@ -7,7 +7,7 @@
   register: sql_script
 
 - name: Execute SQL operation as SA User
-  ansible.builtin.shell: "sqlcmd -C -S localhost -U SA -i  {{ sql_script.dest }} -b"
+  ansible.builtin.shell: "sqlcmd -C -S localhost -U SA -i {{ sql_script.dest }} -b"
   args:
     executable: /bin/bash
   register: query_result
