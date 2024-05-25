@@ -74,7 +74,7 @@ scm_jobtemplates:
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/mssql/mssql_create_user.yml"
+    playbook: "playbooks/sqlserver/mssql_create_user.yml"
     creds:
       - "RHEL Managed Hosts Credential"
     ask_variables_on_launch: false
@@ -98,7 +98,7 @@ scm_jobtemplates:
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/mssql/mssql_grant_roles.yml"
+    playbook: "playbooks/sqlserver/mssql_grant_roles.yml"
     creds:
       - "RHEL Managed Hosts Credential"
     ask_variables_on_launch: false
@@ -124,7 +124,7 @@ scm_jobtemplates:
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
     project: "Ansible Databases Demo Project"
-    playbook: "playbooks/mssql/mssql_execute_script.yml"
+    playbook: "playbooks/sqlserver/mssql_execute_script.yml"
     creds:
       - "RHEL Managed Hosts Credential"
       - "MSSQL SA Credential"
