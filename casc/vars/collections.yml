@@ -4,11 +4,11 @@ ah_collections:
     version: 1.0.0
     source: ../ansible-collections/database/oracle
 
-#  - name: sqlserver
-#    namespace: database
-#    version: 1.0.0
-#    source: ../ansible-collections/database/sqlserver
-#
+  - name: sqlserver
+    namespace: database
+    version: 1.0.0
+    source: ../ansible-collections/database/sqlserver
+
   - name: provision
     namespace: infrastructure
     version: 1.0.0
