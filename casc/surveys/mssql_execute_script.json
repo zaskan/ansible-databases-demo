@@ -1,0 +1,30 @@
+{
+    "name": "",
+    "spec": [
+        {
+            "max": 32,
+            "min": 0,
+            "type": "text",
+            "choices": "",
+            "default": "",
+            "required": true,
+            "variable": "vm_hostname",
+            "new_question": true,
+            "question_name": "SQL Server",
+            "question_description": ""
+        },
+        {
+            "max": 256,
+            "min": 0,
+            "type": "text",
+            "choices": "",
+            "default": "",
+            "required": true,
+            "variable": "script_filename",
+            "new_question": true,
+            "question_name": "Script Filename",
+            "question_description": ""
+        }
+    ],
+    "description": ""
+}

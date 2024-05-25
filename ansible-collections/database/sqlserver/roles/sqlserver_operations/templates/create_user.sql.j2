@@ -1,0 +1,2 @@
+CREATE LOGIN {{ db_username }} WITH PASSWORD = '{{ db_password }}';
+CREATE USER {{ db_username }} for login {{ db_username }};

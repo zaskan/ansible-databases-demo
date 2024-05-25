@@ -1,0 +1,11 @@
+---
+- name: Create SQL Server User
+  hosts: "{{ vm_hostname }}"
+  gather_facts: true
+  become: true
+  roles:
+    - role: database.sqlserver.sqlserver_operations
+      vars:
+        operation: create_user
+        db_username: "{{ username }}"
+        db_password: "{{ password }}"

@@ -1,0 +1,23 @@
+---
+- name: Template SQL Sentence using provided variables
+  ansible.builtin.template:
+    src: "{{ operation }}.sql.j2"
+    dest: "/tmp/{{ operation }}_{{ ansible_date_time.iso8601 }}.sql"
+    mode: "0755"
+  register: sql_script
+  when: lookup('ansible.builtin.env', 'MSSQL_DATABASE_USERNAME') == ""
+
+- name: Execute SQL operation as SA User
+  ansible.builtin.shell: "sqlcmd -C -S localhost -U {{ lookup('ansible.builtin.env', 'MSSQL_DATABASE_USERNAME') }} -P '{{ lookup('ansible.builtin.env', 'MSSQL_DATABASE_PASSWORD') }}' < {{ sql_script.dest }}"
+  args:
+    executable: /bin/bash
+  register: query_result
+  changed_when: "query_result.rc == 0"
+  failed_when: "query_result.rc != 0"
+  when: lookup('ansible.builtin.env', 'MSSQL_DATABASE_USERNAME') == ""
+
+- name: Clean temporary files
+  ansible.builtin.file:
+    path: "{{ sql_script.dest }}"
+    state: absent
+  when: lookup('ansible.builtin.env', 'MSSQL_DATABASE_USERNAME') == ""

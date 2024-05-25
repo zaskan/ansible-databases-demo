@@ -70,6 +70,18 @@ scm_jobtemplates:
     execution_environment: "Azure Execution Environment"
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/oracle_new_user.json') }}"
+  - name: "[JT] [MSSQL] Create User"
+    org: "{{ default_organization | default('Default') }}"
+    inv: "Microsoft Azure"
+    project: "Ansible Databases Demo Project"
+    playbook: "playbooks/mssql/mssql_create_user.yml"
+    creds:
+      - "RHEL Managed Hosts Credential"
+    ask_variables_on_launch: false
+    allow_simultaneous: false
+    execution_environment: "Azure Execution Environment"
+    survey_enabled: true
+    survey_spec: "{{ lookup('file', 'surveys/mssql_new_user.json') }}"
   - name: "[JT] [Oracle] Grant Roles to Database User"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
@@ -82,6 +94,18 @@ scm_jobtemplates:
     execution_environment: "Azure Execution Environment"
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/oracle_grant_role.json') }}"
+  - name: "[JT] [MSSQL] Grant Roles to Database User"
+    org: "{{ default_organization | default('Default') }}"
+    inv: "Microsoft Azure"
+    project: "Ansible Databases Demo Project"
+    playbook: "playbooks/mssql/mssql_grant_roles.yml"
+    creds:
+      - "RHEL Managed Hosts Credential"
+    ask_variables_on_launch: false
+    allow_simultaneous: false
+    execution_environment: "Azure Execution Environment"
+    survey_enabled: true
+    survey_spec: "{{ lookup('file', 'surveys/mssql_grant_role.json') }}"
   - name: "[JT] [Oracle] Execute Script"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
@@ -95,6 +119,20 @@ scm_jobtemplates:
     execution_environment: "Azure Execution Environment"
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/oracle_execute_script.json') }}"
+    limit: db_oracle
+  - name: "[JT] [MSSQL] Execute Script"
+    org: "{{ default_organization | default('Default') }}"
+    inv: "Microsoft Azure"
+    project: "Ansible Databases Demo Project"
+    playbook: "playbooks/mssql/mssql_execute_script.yml"
+    creds:
+      - "RHEL Managed Hosts Credential"
+      - "MSSQL SA Credential"
+    ask_variables_on_launch: false
+    allow_simultaneous: false
+    execution_environment: "Azure Execution Environment"
+    survey_enabled: true
+    survey_spec: "{{ lookup('file', 'surveys/mssql_execute_script.json') }}"
     limit: db_oracle
   - name: "[JT] [Oracle] Create Backup"
     org: "{{ default_organization | default('Default') }}"

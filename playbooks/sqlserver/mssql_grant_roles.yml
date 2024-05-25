@@ -1,0 +1,11 @@
+---
+- name: Grant Role toz User
+  hosts: "{{ vm_hostname }}"
+  gather_facts: true
+  become: true
+  roles:
+    - role: database.sqlserver.sqlserver_operations
+      vars:
+        operation: grant_roles
+        db_username: "{{ username }}"
+        roles: "{{ user_roles }}"

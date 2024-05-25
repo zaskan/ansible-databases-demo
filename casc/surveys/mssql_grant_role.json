@@ -1,0 +1,42 @@
+{
+    "name": "",
+    "spec": [
+        {
+            "max": 32,
+            "min": 0,
+            "type": "text",
+            "choices": "",
+            "default": "",
+            "required": true,
+            "variable": "vm_hostname",
+            "new_question": true,
+            "question_name": "SQL Server Server",
+            "question_description": ""
+        },
+        {
+            "max": 32,
+            "min": 0,
+            "type": "text",
+            "choices": "",
+            "default": "",
+            "required": true,
+            "variable": "username",
+            "new_question": true,
+            "question_name": "Username",
+            "question_description": "Username to grant roles"
+        },
+        {
+            "max": 255,
+            "min": 0,
+            "type": "text",
+            "choices": "",
+            "default": "",
+            "required": true,
+            "variable": "user_roles",
+            "new_question": true,
+            "question_name": "Roles",
+            "question_description": "Add roles, sparated by comma"
+        }
+    ],
+    "description": ""
+}
