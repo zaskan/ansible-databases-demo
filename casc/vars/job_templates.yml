@@ -25,6 +25,17 @@ scm_jobtemplates:
     ask_variables_on_launch: true
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
+  - name: "[JT] [MSSQL] Configure Machine"
+    org: "{{ default_organization | default('Default') }}"
+    inv: "Microsoft Azure"
+    project: "Ansible Databases Demo Project"
+    playbook: "playbooks/infrastructure/configure_azure_vm.yml"
+    creds:
+      - "RHEL Managed Hosts Credential"
+      - "MSSQL SA Credential"
+    ask_variables_on_launch: true
+    allow_simultaneous: false
+    execution_environment: "Azure Execution Environment"
   - name: "[JT] [Oracle] Deploy Oracle"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
@@ -33,6 +44,17 @@ scm_jobtemplates:
     creds:
       - "RHEL Managed Hosts Credential"
       - "Oracle Sysdba Credential"
+    ask_variables_on_launch: true
+    allow_simultaneous: false
+    execution_environment: "Azure Execution Environment"
+  - name: "[JT] [MSSQL] Deploy SQL Server"
+    org: "{{ default_organization | default('Default') }}"
+    inv: "Microsoft Azure"
+    project: "Ansible Databases Demo Project"
+    playbook: "playbooks/sqlserver/mssql_deploy.yml"
+    creds:
+      - "RHEL Managed Hosts Credential"
+      - "MSSQL SA Credential"
     ask_variables_on_launch: true
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"

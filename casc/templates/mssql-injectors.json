@@ -1,0 +1,6 @@
+{
+    "env": {
+      "MSSQL_PASSWORD": "{{ mssql_password }}"
+    }
+  }
+  

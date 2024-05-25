@@ -80,3 +80,50 @@ scm_workflowjobtemplates:
            failure_nodes: []
            always_nodes: []
            credentials: []
+  - name: "[WF] Deploy Sql Server"
+    org: "{{ default_organization | default('Default') }}"
+    inv: ""
+    ask_variables_on_launch: false
+    ask_limit_on_launch: false
+    allow_simultaneous: true
+    survey_enabled: true
+    survey_spec: "{{ lookup('file', 'surveys/infra_deploy_vm.json') }}"
+    steps:
+       - identifier: Provision Infrastructure
+         unified_job_template:
+           organization:
+             name: "{{ default_organization | default('Default') }}"
+           name: "[JT] Deploy Virtual Machine"
+           type: job_template
+         credentials: []
+         related:
+           success_nodes:
+             - identifier: "Configure SQL Server Machine"
+           failure_nodes: []
+           always_nodes: []
+           credentials: []
+       - identifier: Configure SQL Server Machine
+         unified_job_template:
+           organization:
+             name: "{{ default_organization | default('Default') }}"
+           name: "[JT] [MSSQL] Configure Machine"
+           type: job_template
+         credentials: []
+         related:
+           success_nodes:
+             - identifier: "Install SQL Server Software"
+           failure_nodes: []
+           always_nodes: []
+           credentials: []
+       - identifier: Install SQL Server Software
+         unified_job_template:
+           organization:
+             name: "{{ default_organization | default('Default') }}"
+           name: "[JT] [MSSQL] Deploy SQL Server"
+           type: job_template
+         credentials: []
+         related:
+           success_nodes: []
+           failure_nodes: []
+           always_nodes: []
+           credentials: []

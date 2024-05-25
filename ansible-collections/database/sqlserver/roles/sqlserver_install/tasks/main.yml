@@ -1,41 +1,57 @@
 ---
 # tasks file for sqlserver_install
----
-- name: Install MSSQL
-  hosts: all
-  gather_facts: false
-  become: true
-  environment:
-    MSSQL_SA_PASSWORD: ""
-    MSSQL_PID: "express"
-    SQL_ENABLE_AGENT: "y"
-    ACCEPT_EULA: "Y"
+  - name: Set hostname
+    ansible.builtin.hostname:
+      name: "{{ inventory_hostname }}"
 
-  tasks:
+  - name: Add entry to hosts file
+    ansible.builtin.lineinfile:
+      line: "{{ private_ipv4_addresses.0 }} {{ inventory_hostname }}"
+      path: /etc/hosts
 
-    - name: Add Microsoft repository
-      ansible.builtin.yum_repository:
-        name: "packages-microsoft-com-mssql-server-{{ idx }}"
-        description: Microsoft MSSQL Repo
-        baseurl: https://packages.microsoft.com/rhel/8/mssql-server-2022/
-        gpgcheck: true
-        enabled: true
-        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
-      loop:
-        - https://packages.microsoft.com/rhel/8/mssql-server-2022/
-        - https://packages.microsoft.com/rhel/8/prod/
-      loop_control:
-        index_var: idx
+  - name: Disable Firewalld
+    ansible.builtin.service:
+      name: firewalld
+      state: stopped
+      enabled: false
 
-    - name: Install MSSQL Installation Packages
-      ansible.builtin.dnf:
-        name: "{{ item }}"
-        state: present
-      loop:
-        - mssql-server
-        - mssql-tools
-        - unixODBC-devel
+  - name: Add Microsoft repository
+    ansible.builtin.yum_repository:
+      name: "packages-microsoft-com-mssql-server-{{ idx }}"
+      description: Microsoft MSSQL Repo
+      baseurl: https://packages.microsoft.com/rhel/8/mssql-server-2022/
+      gpgcheck: true
+      enabled: true
+      gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    loop:
+      - https://packages.microsoft.com/rhel/8/mssql-server-2022/
+      - https://packages.microsoft.com/rhel/8/prod/
+    loop_control:
+      index_var: idx
 
-    - name: Set Initial Configuration for MSSQL
-      ansible.builtin.shell:
-        cmd: MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD MSSQL_PID=$MSSQL_PID /opt/mssql/bin/mssql-conf -n setup accept-eula
+  - name: Install MSSQL Installation Packages
+    ansible.builtin.dnf:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - mssql-server
+      - mssql-tools18
+      - unixODBC-devel
+
+  - name: Set Initial Configuration for MSSQL
+    ansible.builtin.shell:
+      cmd: MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD MSSQL_PID=$MSSQL_PID /opt/mssql/bin/mssql-conf -n setup accept-eula
+    environment:
+      MSSQL_SA_PASSWORD: "{{ lookup('ansible.builtin.env', 'MSSQL_PASSWORD') }}"
+      MSSQL_PID: "express"
+      SQL_ENABLE_AGENT: "y"
+      ACCEPT_EULA: "Y"
+
+  - name: Add Mssql environment variables to root user
+    ansible.builtin.lineinfile:
+      line: "{{ item }}"
+      path: "/root/.bash_profile"
+      create: true
+    loop:
+      - export PATH=$PATH:/opt/mssql-tools18/bin
+  

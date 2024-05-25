@@ -1,0 +1,7 @@
+---
+- name: Deploy SQL Server
+  hosts: "{{ vm_hostname }}"
+  gather_facts: true
+  become: true
+  roles:
+    - role: database.sqlserver.sqlserver_install

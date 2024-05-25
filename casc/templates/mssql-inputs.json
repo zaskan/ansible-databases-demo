@@ -1,0 +1,14 @@
+{
+    "fields": [
+      {
+        "id": "mssql_password",
+        "type": "string",
+        "label": "public_key",
+        "secret": true
+      }
+    ],
+    "required": [
+      "mssql_password"
+    ]
+  }
+  
