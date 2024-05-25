@@ -3,6 +3,8 @@
   hosts: "{{ vm_hostname }}"
   gather_facts: true
   become: true
+  environment: 
+    PATH: $PATH:$HOME/bin:/opt/mssql-tools18/bin
   roles:
     - role: database.sqlserver.sqlserver_operations
       vars:
