@@ -63,6 +63,9 @@
     loop:
       - mssql-tools18
       - unixODBC-devel
+    environment:
+      HOMEBREW_ACCEPT_EULA: "Y"
+      ACCEPT_EULA: "Y"
 
   - name: Set Initial Configuration for MSSQL
     ansible.builtin.shell:
