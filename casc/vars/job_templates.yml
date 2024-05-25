@@ -135,7 +135,7 @@ scm_jobtemplates:
     execution_environment: "Azure Execution Environment"
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/mssql_execute_script.json') }}"
-    limit: db_oracle
+    limit: db_sqlserver
   - name: "[JT] [Oracle] Create Backup"
     org: "{{ default_organization | default('Default') }}"
     inv: "Microsoft Azure"
