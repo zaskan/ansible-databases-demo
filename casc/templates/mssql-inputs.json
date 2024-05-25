@@ -3,7 +3,7 @@
       {
         "id": "mssql_password",
         "type": "string",
-        "label": "public_key",
+        "label": "mssql_password",
         "secret": true
       }
     ],

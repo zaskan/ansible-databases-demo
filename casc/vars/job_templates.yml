@@ -77,6 +77,7 @@ scm_jobtemplates:
     playbook: "playbooks/sqlserver/mssql_create_user.yml"
     creds:
       - "RHEL Managed Hosts Credential"
+      - "MSSQL SA Credential"
     ask_variables_on_launch: false
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
@@ -101,6 +102,7 @@ scm_jobtemplates:
     playbook: "playbooks/sqlserver/mssql_grant_roles.yml"
     creds:
       - "RHEL Managed Hosts Credential"
+      - "MSSQL SA Credential"
     ask_variables_on_launch: false
     allow_simultaneous: false
     execution_environment: "Azure Execution Environment"
