@@ -78,7 +78,7 @@
 
   - name: Add Mssql environment variables to root user
     ansible.builtin.lineinfile:
-      line: "export PATH=$PATH:/opt/mssql-tools18/bin"
-      path: "/root/.bash_profile"
-      regexp: '^export PATH'
+      line: "export PATH=$PATH:$HOME/bin:/opt/mssql-tools18/bin"
+      path: "/root/.bashrc"
+      regexp: '^PATH=$PATH'
       create: true
