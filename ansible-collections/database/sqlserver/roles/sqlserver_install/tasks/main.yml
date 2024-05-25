@@ -22,6 +22,7 @@
       baseurl: https://packages.microsoft.com/rhel/8/mssql-server-2022/
       gpgcheck: true
       enabled: true
+      state: present
       gpgkey: https://packages.microsoft.com/keys/microsoft.asc
     loop:
       - https://packages.microsoft.com/rhel/8/mssql-server-2022/
@@ -52,11 +53,12 @@
       baseurl: https://packages.microsoft.com/rhel/8/mssql-server-2022/
       gpgcheck: true
       enabled: true
+      state: present
       gpgkey: https://packages.microsoft.com/keys/microsoft.asc
     loop:
       - https://packages.microsoft.com/config/rhel/8/prod
 
-  - name: Install MSSQL Installation Packages
+  - name: Install MSSQL Tools Packages
     ansible.builtin.dnf:
       name: "{{ item }}"
       state: present
