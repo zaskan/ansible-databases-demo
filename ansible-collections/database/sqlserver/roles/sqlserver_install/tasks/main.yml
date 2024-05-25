@@ -25,7 +25,8 @@
       gpgkey: https://packages.microsoft.com/keys/microsoft.asc
     loop:
       - https://packages.microsoft.com/rhel/8/mssql-server-2022/
-      - https://packages.microsoft.com/rhel/8/prod/
+      - https://packages.microsoft.com/rhel/8/prod
+
     loop_control:
       index_var: idx
 
@@ -35,6 +36,32 @@
       state: present
     loop:
       - mssql-server
+
+  - name: Remove MSSQL Tools undesired version
+    ansible.builtin.dnf:
+      name: "{{ item }}"
+      state: absent
+    loop:
+      - mssql-tools
+      - unixODBC-utf16
+      - unixODBC-utf16-devel
+
+  - name: Add Microsoft repository
+    ansible.builtin.yum_repository:
+      name: "packages-microsoft-com-mssql-server-{{ idx }}"
+      description: Microsoft MSSQL Repo
+      baseurl: https://packages.microsoft.com/rhel/8/mssql-server-2022/
+      gpgcheck: true
+      enabled: true
+      gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    loop:
+      - https://packages.microsoft.com/config/rhel/8/prod
+
+  - name: Install MSSQL Installation Packages
+    ansible.builtin.dnf:
+      name: "{{ item }}"
+      state: present
+    loop:
       - mssql-tools18
       - unixODBC-devel
 
