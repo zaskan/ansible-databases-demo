@@ -1,0 +1,18 @@
+{
+    "name": "",
+    "spec": [
+        {
+            "max": 32,
+            "min": 0,
+            "type": "text",
+            "choices": "",
+            "default": "",
+            "required": true,
+            "variable": "origin",
+            "new_question": true,
+            "question_name": "SQL Server Hostname",
+            "question_description": "Hostname which contains the SQL Server instance to be backed up"
+        }
+    ],
+    "description": ""
+}
