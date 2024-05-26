@@ -151,11 +151,36 @@ scm_jobtemplates:
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/oracle_create_backup.json') }}"
     limit: db_oracle
+  - name: "[JT] [MSSQL] Create Backup"
+    org: "{{ default_organization | default('Default') }}"
+    inv: "Microsoft Azure"
+    project: "Ansible Databases Demo Project"
+    playbook: "playbooks/sqlserver/mssql_create_backup.yml"
+    creds:
+      - "RHEL Managed Hosts Credential"
+      - "MSSQL SA Credential"
+      - "Red Hat Ansible Automation Platform Credential"
+    ask_variables_on_launch: false
+    allow_simultaneous: false
+    execution_environment: "Azure Execution Environment"
+    survey_enabled: true
+    survey_spec: "{{ lookup('file', 'surveys/mssql_create_backup.json') }}"
+    limit: db_mssql
   - name: "[JT] [Oracle] Update Restore Job Template"
     org: "{{ default_organization | default('Default') }}"
     inv: "Automation Controller Inventory"
     project: "Ansible Databases Demo Project"
     playbook: "playbooks/oracle/update_restore_job.yml"
+    creds:
+      - "Red Hat Ansible Automation Platform Credential"
+    ask_variables_on_launch: false
+    allow_simultaneous: false
+    execution_environment: "Default execution environment"
+  - name: "[JT] [MSSQL] Update Restore Job Template"
+    org: "{{ default_organization | default('Default') }}"
+    inv: "Automation Controller Inventory"
+    project: "Ansible Databases Demo Project"
+    playbook: "playbooks/sqlserver/update_restore_job.yml"
     creds:
       - "Red Hat Ansible Automation Platform Credential"
     ask_variables_on_launch: false
