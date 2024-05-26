@@ -1,5 +1,5 @@
 ---
-- name: Update Oracle Restore Job
+- name: Update MSSQL Restore Job
   hosts: localhost
   gather_facts: false
   tasks:
@@ -9,17 +9,17 @@
         controller_username: "{{ lookup('ansible.builtin.env', 'CONTROLLER_USERNAME') }}"
         controller_password: "{{ lookup('ansible.builtin.env', 'CONTROLLER_PASSWORD') }}"
         validate_certs: false
-        name: "[JT] [Oracle] Restore Backup"
+        name: "[JT] [MSSQL] Restore Backup"
         job_type: "run"
         organization: "databasedemo"
         inventory: "Microsoft Azure"
         project: "Ansible Databases Demo Project"
-        playbook: "playbooks/oracle/oracle_restore_backup.yml"
+        playbook: "playbooks/sqlserver/mssql_restore_backup.yml"
         credentials:
-          - "Oracle HR User Credential"
+          - "MSSQL SA Credential"
           - "RHEL Managed Hosts Credential"
         execution_environment: "Azure Execution Environment"
-        limit: db_oracle
+        limit: db_mssql
         survey_enabled: true
         survey_spec: "{{ survey }}"
         state: present
