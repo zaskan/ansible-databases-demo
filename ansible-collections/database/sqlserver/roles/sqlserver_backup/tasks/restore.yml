@@ -46,7 +46,6 @@
   register: backup_script
   when:
     - inventory_hostname == target
-    - local is defined
 
 - name: Execute Restore operation
   ansible.builtin.shell: "sqlcmd -S localhost -U SA -b -C -i /tmp/restore.sql"
