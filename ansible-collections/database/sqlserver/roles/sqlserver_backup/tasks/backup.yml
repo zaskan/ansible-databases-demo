@@ -15,7 +15,7 @@
   when: inventory_hostname == origin
 
 - name: Execute Backups operation
-  ansible.builtin.shell: "sqlcmd -S localhost -U SA -m -C -Q \"BACKUP DATABASE [hr] TO DISK = N'/home/mssql/backups/{{ origin }}/backup_{{ backup_time }}' WITH FORMAT\""
+  ansible.builtin.shell: "sqlcmd -S localhost -U SA -b -C -Q \"BACKUP DATABASE [hr] TO DISK = N'/home/mssql/backups/{{ origin }}/backup_{{ backup_time }}' WITH FORMAT\""
   args:
     executable: /bin/bash
   environment:
