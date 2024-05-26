@@ -9,6 +9,14 @@
       line: "{{ private_ipv4_addresses.0 }} {{ inventory_hostname }}"
       path: /etc/hosts
 
+  - name: Install dependencies
+    ansible.builtin.dnf:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - git
+      - nfs-utils
+
   - name: Disable Firewalld
     ansible.builtin.service:
       name: firewalld
