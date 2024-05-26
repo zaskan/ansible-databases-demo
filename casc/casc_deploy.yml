@@ -43,6 +43,25 @@
       when:
         - lookup('file', 'vars/collections.yml', errors='ignore') is not none
 
+    - name: Delete collections from Automation Hub
+      infra.ah_configuration.ah_collection:
+        namespace: "{{ item.namespace }}"
+        name: "{{ item.name }}"
+        path: "/tmp/{{ item.namespace }}-{{ item.name }}-{{ item.version }}.tar.gz"
+        state: absent
+        version: "{{ item.version }}"
+      loop: "{{ ah_collections }}"
+      when:
+        - lookup('file', 'vars/collections.yml', errors='ignore') is not none
+
+    - name: Delete Automation Hub Collection Namespaces
+      infra.ah_configuration.ah_namespace:
+        name: "{{ item.namespace }}"
+        state: absent
+      loop: "{{ ah_collections }}"
+      when:
+        - lookup('file', 'vars/collections.yml', errors='ignore') is not none
+
     - name: Create Automation Hub Collection Namespaces
       infra.ah_configuration.ah_namespace:
         name: "{{ item.namespace }}"
