@@ -33,7 +33,7 @@
     - local is not defined
 
 - name: Execute Restore operation
-  ansible.builtin.shell: "sqlcmd -S localhost -U SA -C -Q 'RESTORE DATABASE [hr] FROM DISK = N'/home/mssql/backups/{{ backup }}' WITH RECOVERY, NOUNLOAD, STATS = 5'"
+  ansible.builtin.shell: "sqlcmd -S localhost -U SA -C -Q \"RESTORE DATABASE [hr] FROM DISK = N'/home/mssql/backups/{{ backup }}' WITH RECOVERY, NOUNLOAD, STATS = 5\""
   args:
     executable: /bin/bash
   environment:
