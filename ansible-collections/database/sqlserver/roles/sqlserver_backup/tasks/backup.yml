@@ -31,7 +31,7 @@
   ansible.builtin.find:
     paths:
       - /home/mssql/backups/
-    file_type: directory
+    file_type: file
     recurse: true
     use_regex: true
     patterns:
