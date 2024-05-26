@@ -1,0 +1,27 @@
+USE master;  
+--Create tail-log backup.  
+BACKUP LOG {{ database }}   
+TO DISK = '/home/mssql/backups/{{ backup }}'    
+   WITH NORECOVERY;   
+GO  
+--Restore the full database backup (from backup set 1).  
+RESTORE DATABASE {{ database }}   
+  FROM DISK = '/home/mssql/backups/{{ backup }}'   
+  WITH FILE=1,   
+    NORECOVERY;  
+  
+--Restore the regular log backup (from backup set 2).  
+RESTORE LOG {{ database }}   
+  FROM DISK = '/home/mssql/backups/{{ backup }}'   
+  WITH FILE=2,   
+    NORECOVERY;  
+  
+--Restore the tail-log backup (from backup set 3).  
+RESTORE LOG {{ database }}   
+  FROM DISK = '/home/mssql/backups/{{ backup }}'  
+  WITH FILE=3,   
+    NORECOVERY;  
+GO  
+--recover the database:  
+RESTORE DATABASE {{ database }} WITH RECOVERY;  
+GO  
