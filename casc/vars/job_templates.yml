@@ -165,7 +165,7 @@ scm_jobtemplates:
     execution_environment: "Azure Execution Environment"
     survey_enabled: true
     survey_spec: "{{ lookup('file', 'surveys/mssql_create_backup.json') }}"
-    limit: db_mssql
+    limit: db_sqlserver
   - name: "[JT] [Oracle] Update Restore Job Template"
     org: "{{ default_organization | default('Default') }}"
     inv: "Automation Controller Inventory"
