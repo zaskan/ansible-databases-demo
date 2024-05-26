@@ -78,13 +78,48 @@
 
   - name: Add Mssql environment variables to root user
     ansible.builtin.lineinfile:
-      line: "export PATH=$PATH:$HOME/bin:/opt/mssql-tools18/bin"
-      path: "/root/.bashrc"
-      regexp: '^PATH=$PATH'
+      line: "{{ item }}"
+      path: "/var/opt/mssql/.bash_profile"
       create: true
+      owner: mssql
+      group: mssql
+    loop:
+      - 'PATH=$PATH:$HOME/bin'
+      - 'export PATH=$PATH:$HOME/bin:/opt/mssql-tools18/bin'
+
+  - name: Create NFS Shared directory
+    ansible.builtin.file:
+      path: "/home/mssql/backups/{{ vm_hostname }}"
+      state: directory
+
+  - name: Set permissions
+    ansible.builtin.file:
+      path: "{{ item }}"
+      owner: mssql
+      group: mssql
+      mode: "0755"
+      recurse: yes
+    loop:
+      - "/home/mssql/files"
+      - "/home/mssql/backups/{{ vm_hostname }}"
+
+  - name: Create NFS exports configuration
+    ansible.builtin.lineinfile:
+      path: "/etc/exports"
+      line: "/home/mssql/backups/{{ vm_hostname }} *(rw,sync,no_root_squash,no_subtree_check)"
+      insertafter: EOF
+
+  - name: Enable Services 
+    ansible.builtin.service:
+      name: "{{ item }}"
+      state: started
+      enabled: true
+    loop:
+      - rpcbind
+      - nfs-server
 
   - name: Copy Scripts
     ansible.builtin.copy: 
       src: files
-      dest: /tmp
+      dest: /home/mssql/files
     become: false
