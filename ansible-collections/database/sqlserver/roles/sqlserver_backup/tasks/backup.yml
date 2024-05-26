@@ -9,7 +9,7 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    mode: 'o+r'
+    mode: '0755'
     group: mssql
     owner: mssql
   loop:
@@ -17,7 +17,7 @@
   when: inventory_hostname == origin
 
 - name: Execute Backups operation
-  ansible.builtin.shell: "sqlcmd -S localhost -U SA -b -C -Q \"BACKUP DATABASE [hr] TO DISK = N'/home/mssql/backups/{{ origin }}/backup_{{ backup_time }}' WITH FORMAT\""
+  ansible.builtin.shell: "sqlcmd -S localhost -U SA -b -C -Q \"BACKUP DATABASE [hr] TO DISK = N'/home/mssql/backups/{{ origin }}/backup_{{ backup_time }}.bak' WITH FORMAT\""
   args:
     executable: /bin/bash
   environment:
