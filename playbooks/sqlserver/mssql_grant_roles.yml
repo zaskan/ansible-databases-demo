@@ -4,8 +4,6 @@
   gather_facts: true
   become: true
   become_user: mssql
-  environment: 
-    PATH: $PATH:$HOME/bin:/opt/mssql-tools18/bin
   roles:
     - role: database.sqlserver.sqlserver_operations
       vars:
