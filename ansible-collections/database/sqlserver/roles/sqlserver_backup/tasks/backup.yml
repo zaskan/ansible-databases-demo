@@ -16,8 +16,16 @@
     - "/home/mssql/backups/{{ origin }}"
   when: inventory_hostname == origin
 
-- name: Execute Backups operation
-  ansible.builtin.shell: "sqlcmd -S localhost -U SA -b -C -Q \"BACKUP DATABASE [hr] TO DISK = N'/home/mssql/backups/{{ origin }}/backup_{{ backup_time }}.bak' WITH FORMAT\""
+- name: Template RMAN Script using provided variables
+  ansible.builtin.template:
+    src: "backup.rmn.j2"
+    dest: "/tmp/backup_{{ backup_time }}.rmn"
+    mode: "0755"
+  register: backup_script
+  when: inventory_hostname == origin
+
+- name: Execute Backup operation
+  ansible.builtin.shell: "sqlcmd -S localhost -U SA -b -C -i /tmp/backup_{{ backup_time }}.rmn"
   args:
     executable: /bin/bash
   environment:

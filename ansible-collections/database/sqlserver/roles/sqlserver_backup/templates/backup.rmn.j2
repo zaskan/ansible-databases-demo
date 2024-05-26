@@ -1,8 +1,10 @@
-SHUTDOWN IMMEDIATE;
-STARTUP MOUNT;
-ALTER DATABASE ARCHIVELOG;
-ALTER DATABASE OPEN;
-ALTER SYSTEM SET DB_RECOVERY_FILE_DEST_SIZE = 1G;
-CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/home/oracle/backups/{{ origin }}/backup_{{ backup_time }}/backup_%U';
-CONFIGURE CONTROLFILE AUTOBACKUP FORMAT FOR DEVICE TYPE DISK TO '/home/oracle/backups/{{ origin }}/backup_{{ backup_time }}/controlfile/%F';
-BACKUP DATABASE PLUS ARCHIVELOG;
+USE master;
+GO
+ALTER DATABASE {{ database }} SET RECOVERY FULL;
+GO
+BACKUP DATABASE {{ database }}
+  TO DISK = '/home/mssql/backups/{{ origin }}/backup_{{ backup_time }}.bak'
+  WITH FORMAT;
+GO
+BACKUP LOG {{ database }} TO DISK = '/home/mssql/backups/{{ origin }}/backup_{{ backup_time }}.bak';
+GO
