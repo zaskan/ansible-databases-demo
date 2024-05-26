@@ -3,7 +3,7 @@ GO
 ALTER DATABASE {{ database }} SET RECOVERY FULL;
 GO
 BACKUP DATABASE {{ database }}
-  TO DISK = '/home/mssql/backups/{{ origin }}/backup_{{ backup_time }}.bak'
+  TO DISK = '/home/mssql/backups/{{ origin }}/backup_{{ database }}_{{ backup_time }}.bak'
   WITH FORMAT;
 GO
 BACKUP LOG {{ database }} TO DISK = '/home/mssql/backups/{{ origin }}/backup_{{ database }}_{{ backup_time }}.bak';

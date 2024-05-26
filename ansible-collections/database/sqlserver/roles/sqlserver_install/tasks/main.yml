@@ -110,6 +110,7 @@
     mode: "0755"
     recurse: true
   loop:
+    - "/home/mssql"
     - "/home/mssql/files"
     - "/home/mssql/backups/{{ vm_hostname }}"
 
