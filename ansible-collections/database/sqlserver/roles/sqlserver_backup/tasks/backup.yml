@@ -13,7 +13,7 @@
     group: mssql
     owner: mssql
   loop:
-    - "/home/mssql/backups/{{ origin }}/backup_{{ backup_time }}"
+    - "/home/mssql/backups/{{ origin }}"
   when: inventory_hostname == origin
 
 - name: Execute Backups operation
