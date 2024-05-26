@@ -19,7 +19,7 @@
           - "MSSQL SA Credential"
           - "RHEL Managed Hosts Credential"
         execution_environment: "Azure Execution Environment"
-        limit: db_mssql
+        limit: db_sqlserver
         survey_enabled: true
         survey_spec: "{{ survey }}"
         state: present
