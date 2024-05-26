@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS [{{ database }}]
+    ON (NAME = N'hr_dat', FILENAME = N'/var/opt/mssql/data/{{ database }}_dat.mdf', SIZE = 1024MB, FILEGROWTH = 256MB)
+LOG ON (NAME = N'hr_log', FILENAME = N'/var/opt/mssql/data/{{ database }}_log.ldf', SIZE = 512MB, FILEGROWTH = 125MB)
+GO
 USE master;  
 --Create tail-log backup.  
 BACKUP LOG {{ database }}   
