@@ -9,7 +9,9 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    mode: '0755'
+    mode: 'o+r'
+    group: mssql
+    owner: mssql
   loop:
     - "/home/mssql/backups/{{ origin }}/backup_{{ backup_time }}"
   when: inventory_hostname == origin
