@@ -12,7 +12,20 @@
             "new_question": true,
             "question_name": "SQL Server Hostname",
             "question_description": "Hostname which contains the SQL Server instance to be backed up"
+        },
+        {
+            "max": 32,
+            "min": 0,
+            "type": "text",
+            "choices": "",
+            "default": "",
+            "required": true,
+            "variable": "database",
+            "new_question": true,
+            "question_name": "SQL Database",
+            "question_description": "Database name"
         }
+
     ],
     "description": ""
 }
