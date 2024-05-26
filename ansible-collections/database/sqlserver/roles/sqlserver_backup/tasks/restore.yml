@@ -1,0 +1,130 @@
+---
+- name: Determine if backup is local or remote
+  ansible.builtin.set_fact:
+    local: true
+  when:
+    - "target in backup"
+    - inventory_hostname == target
+
+- name: Get origin hostname
+  ansible.builtin.set_fact:
+    origin: "{{ backup.split('/')[0] }}"
+  when:
+    - inventory_hostname == target
+
+- name: Get origin IP
+  ansible.builtin.shell: "host {{ origin }} | awk '{match($0,/[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+/); ip = substr($0,RSTART,RLENGTH); print ip}'"
+  register: origin_ip
+  when:
+    - inventory_hostname == target
+
+- name: Mount target server mountpoint
+  ansible.posix.mount:
+    src: "{{ origin_ip.stdout }}:/home/oracle/backups/{{ origin }}"
+    path: "/home/oracle/backups/{{ origin }}"
+    opts: rw,sync,hard
+    boot: true
+    state: mounted
+    fstype: nfs
+  become: true
+  become_user: root
+  when:
+    - inventory_hostname == target
+    - local is not defined
+
+- name: Find Controlfile
+  ansible.builtin.find:
+    paths:
+      - /home/oracle/backups/{{ backup }}/controlfile
+    file_type: file
+    recurse: true
+    use_regex: true
+    patterns:
+      - '^c-*'
+  register: controlfile
+  when:
+    - inventory_hostname == target
+
+- name: Set controlfile
+  ansible.builtin.set_fact:
+    controlfile: "{{ controlfile.files }}"
+  when:
+    - inventory_hostname == target
+
+- name: Get dbid content
+  ansible.builtin.slurp:
+    src: "/home/oracle/backups/{{ backup }}/dbid"
+  register: dbid
+  when:
+    - inventory_hostname == target
+    - local is not defined
+
+- name: Set dbid
+  ansible.builtin.set_fact:
+    dbid: "{{ dbid['content'] | b64decode }}"
+  when:
+    - inventory_hostname == target
+
+- name: Template RMAN Script using provided variables for local restore
+  ansible.builtin.template:
+    src: "restore_in_same_node.rmn.j2"
+    dest: "/tmp/restore.rman"
+    mode: "0755"
+  register: backup_script
+  when:
+    - inventory_hostname == target
+    - local is defined
+
+- name: Template RMAN Script using provided variables for remote restore
+  ansible.builtin.template:
+    src: "restore_in_different_node.rmn.j2"
+    dest: "/tmp/restore.rman"
+    mode: "0755"
+  register: backup_script
+  when:
+    - inventory_hostname == target
+    - local is not defined
+
+- name: Find Redologs when the target is remote
+  ansible.builtin.find:
+    paths:
+      - /opt/oracle/oradata/FREE/
+    file_type: file
+    recurse: true
+    use_regex: true
+    patterns:
+      - '^redo*'
+  register: redologs
+  when:
+    - inventory_hostname == target
+    - local is not defined
+
+- name: Backup Original Redo files
+  ansible.builtin.copy:
+    src: "{{ item.path }}"
+    dest: "{{ item.path }}.old"
+    mode: "0755"
+    remote_src: true
+  loop: "{{ redologs.files }}"
+  when:
+    - inventory_hostname == target
+    - local is not defined
+
+- name: Delete Original Redo files
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ redologs.files }}"
+  when:
+    - inventory_hostname == target
+    - local is not defined
+
+- name: Execute RMAN operation
+  ansible.builtin.shell: "source .bash_profile && rman target / nocatalog < /tmp/restore.rman log=full_back.log"
+  args:
+    chdir: /home/oracle
+    executable: /bin/bash
+  register: restore_result
+  changed_when: "restore_result.rc == 0"
+  failed_when: "restore_result.rc != 0"
+  when: inventory_hostname == target

@@ -1,0 +1,48 @@
+---
+# tasks file for oracle_backup
+- name: Get current date
+  ansible.builtin.set_fact:
+    backup_time: "{{ ansible_date_time.iso8601_basic_short }}"
+  when: inventory_hostname == origin
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - "/home/mssql/backups/{{ origin }}/backup_{{ backup_time }}"
+  when: inventory_hostname == origin
+
+- name: Execute Backups operation
+  ansible.builtin.shell: "sqlcmd -S localhost -U SA -C -Q "BACKUP DATABASE [hr] TO DISK = N'/home/mssql/backups/{{ origin }}/backup_{{ backup_time }}' WITH FORMAT""
+  args:
+    executable: /bin/bash
+  environment:
+    SQLCMDPASSWORD: "{{ lookup('ansible.builtin.env', 'MSSQL_PASSWORD') }}"
+  register: backup_result
+  changed_when: "backup_result.rc == 0"
+  failed_when: "backup_result.rc != 0"
+  when: inventory_hostname == origin
+
+- name: Find Current backups
+  ansible.builtin.find:
+    paths:
+      - /home/oracle/backups/
+    file_type: directory
+    recurse: true
+    use_regex: true
+    patterns:
+      - '^backup_*'
+  register: files
+
+- name: Get paths
+  ansible.builtin.set_fact:
+    # yamllint disable
+    backups: "{{ ansible_play_hosts | map('extract', hostvars, 'files') | map(attribute='files') | flatten | map(attribute='path') | flatten | map('regex_replace', '^.*/([^/]+/[^/]+)$', '\\1') | list }}"
+  run_once: true
+
+- name: Update Restore Job Template with New Backups
+  ansible.builtin.set_stats:
+    data:
+      survey: "{{ lookup('ansible.builtin.template', 'restore_survey.json.j2') }}"

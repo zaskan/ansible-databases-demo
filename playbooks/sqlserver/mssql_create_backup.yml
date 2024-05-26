@@ -1,0 +1,12 @@
+---
+- name: Create SQL Server Backup
+  hosts: all
+  gather_facts: true
+  become: true
+  environment: 
+    PATH: $PATH:$HOME/bin:/opt/mssql-tools18/bin
+  roles:
+    - role: database.sqlserver.sqlserver_backup
+      vars:
+        operation: backup
+        origin: "{{ origin }}"
