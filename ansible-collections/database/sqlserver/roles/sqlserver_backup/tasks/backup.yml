@@ -16,16 +16,16 @@
     - "/home/mssql/backups/{{ origin }}"
   when: inventory_hostname == origin
 
-- name: Template RMAN Script using provided variables
+- name: Template SQL Script using provided variables
   ansible.builtin.template:
     src: "backup.rmn.j2"
-    dest: "/tmp/backup_{{ backup_time }}.rmn"
+    dest: "/tmp/backup_{{ backup_time }}.sql"
     mode: "0755"
   register: backup_script
   when: inventory_hostname == origin
 
 - name: Execute Backup operation
-  ansible.builtin.shell: "sqlcmd -S localhost -U SA -b -C -i /tmp/backup_{{ backup_time }}.rmn"
+  ansible.builtin.shell: "sqlcmd -S localhost -U SA -b -C -i /tmp/backup_{{ backup_time }}.sql"
   args:
     executable: /bin/bash
   environment:

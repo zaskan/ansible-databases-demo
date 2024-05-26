@@ -32,8 +32,18 @@
     - inventory_hostname == target
     - local is not defined
 
+- name: Template SQL Script using provided variables for local restore
+  ansible.builtin.template:
+    src: "restore.sql.j2"
+    dest: "/tmp/restore.sql"
+    mode: "0755"
+  register: backup_script
+  when:
+    - inventory_hostname == target
+    - local is defined
+
 - name: Execute Restore operation
-  ansible.builtin.shell: "sqlcmd -S localhost -U SA -b -C -Q \"RESTORE DATABASE [hr] FROM DISK = N'/home/mssql/backups/{{ backup }}' WITH RECOVERY, NOUNLOAD, STATS = 5\""
+  ansible.builtin.shell: "sqlcmd -S localhost -U SA -b -C -i /tmp/restore.sql" 
   args:
     executable: /bin/bash
   environment:
@@ -41,4 +51,4 @@
   register: restore_result
   changed_when: "restore_result.rc == 0"
   failed_when: "restore_result.rc != 0"
-  when: inventory_hostname == origin
+  when: inventory_hostname == target
