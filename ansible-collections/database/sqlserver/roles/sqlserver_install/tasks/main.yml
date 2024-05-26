@@ -131,7 +131,7 @@
 - name: Copy Scripts
   ansible.builtin.copy:
     src: files
-    dest: /home/mssql/files
+    dest: /home/mssql
     mode: "644"
     owner: mssql
     group: mssql
