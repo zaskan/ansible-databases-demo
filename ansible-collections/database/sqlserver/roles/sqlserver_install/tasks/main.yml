@@ -1,133 +1,137 @@
 ---
 # tasks file for sqlserver_install
-  - name: Set hostname
-    ansible.builtin.hostname:
-      name: "{{ inventory_hostname }}"
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}"
 
-  - name: Add entry to hosts file
-    ansible.builtin.lineinfile:
-      line: "{{ private_ipv4_addresses.0 }} {{ inventory_hostname }}"
-      path: /etc/hosts
+- name: Add entry to hosts file
+  ansible.builtin.lineinfile:
+    line: "{{ private_ipv4_addresses.0 }} {{ inventory_hostname }}"
+    path: /etc/hosts
 
-  - name: Install dependencies
-    ansible.builtin.dnf:
-      name: "{{ item }}"
-      state: present
-    loop:
-      - git
-      - nfs-utils
+- name: Install dependencies
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - git
+    - nfs-utils
 
-  - name: Disable Firewalld
-    ansible.builtin.service:
-      name: firewalld
-      state: stopped
-      enabled: false
+- name: Disable Firewalld
+  ansible.builtin.service:
+    name: firewalld
+    state: stopped
+    enabled: false
 
-  - name: Add Microsoft repository
-    ansible.builtin.yum_repository:
-      name: "packages-microsoft-com-mssql-server-{{ idx }}"
-      description: Microsoft MSSQL Repo
-      baseurl: https://packages.microsoft.com/rhel/8/mssql-server-2022/
-      gpgcheck: true
-      enabled: true
-      state: present
-      gpgkey: https://packages.microsoft.com/keys/microsoft.asc
-    loop:
-      - https://packages.microsoft.com/rhel/8/mssql-server-2022/
-      - https://packages.microsoft.com/rhel/8/prod
-    loop_control:
-      index_var: idx
+- name: Add Microsoft repository
+  ansible.builtin.yum_repository:
+    name: "packages-microsoft-com-mssql-server-{{ idx }}"
+    description: Microsoft MSSQL Repo
+    baseurl: https://packages.microsoft.com/rhel/8/mssql-server-2022/
+    gpgcheck: true
+    enabled: true
+    state: present
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+  loop:
+    - https://packages.microsoft.com/rhel/8/mssql-server-2022/
+    - https://packages.microsoft.com/rhel/8/prod
+  loop_control:
+    index_var: idx
 
-  - name: Install MSSQL Installation Packages
-    ansible.builtin.dnf:
-      name: "{{ item }}"
-      state: present
-    loop:
-      - mssql-server
+- name: Install MSSQL Installation Packages
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - mssql-server
 
-  - name: Remove MSSQL Tools undesired version
-    ansible.builtin.dnf:
-      name: "{{ item }}"
-      state: absent
-    loop:
-      - mssql-tools
-      - unixODBC-utf16
-      - unixODBC-utf16-devel
+- name: Remove MSSQL Tools undesired version
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - mssql-tools
+    - unixODBC-utf16
+    - unixODBC-utf16-devel
 
-  - name: Add Microsoft repository
-    ansible.builtin.yum_repository:
-      name: "packages-microsoft-com-prod"
-      description: Microsoft MSSQL Tools Repo
-      baseurl: https://packages.microsoft.com/rhel/8/prod/
-      gpgcheck: true
-      enabled: true
-      state: present
-      gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+- name: Add Microsoft repository
+  ansible.builtin.yum_repository:
+    name: "packages-microsoft-com-prod"
+    description: Microsoft MSSQL Tools Repo
+    baseurl: https://packages.microsoft.com/rhel/8/prod/
+    gpgcheck: true
+    enabled: true
+    state: present
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
 
-  - name: Install MSSQL Tools Packages
-    ansible.builtin.dnf:
-      name: "{{ item }}"
-      state: present
-    loop:
-      - mssql-tools18
-      - unixODBC-devel
-    environment:
-      HOMEBREW_ACCEPT_EULA: "Y"
-      ACCEPT_EULA: "Y"
+- name: Install MSSQL Tools Packages
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - mssql-tools18
+    - unixODBC-devel
+  environment:
+    HOMEBREW_ACCEPT_EULA: "Y"
+    ACCEPT_EULA: "Y"
 
-  - name: Set Initial Configuration for MSSQL
-    ansible.builtin.shell:
-      cmd: MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD MSSQL_PID=$MSSQL_PID /opt/mssql/bin/mssql-conf -n setup accept-eula
-    environment:
-      MSSQL_SA_PASSWORD: "{{ lookup('ansible.builtin.env', 'MSSQL_PASSWORD') }}"
-      MSSQL_PID: "express"
-      SQL_ENABLE_AGENT: "y"
-      ACCEPT_EULA: "Y"
+- name: Set Initial Configuration for MSSQL
+  ansible.builtin.shell:
+    cmd: MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD MSSQL_PID=$MSSQL_PID /opt/mssql/bin/mssql-conf -n setup accept-eula
+  environment:
+    MSSQL_SA_PASSWORD: "{{ lookup('ansible.builtin.env', 'MSSQL_PASSWORD') }}"
+    MSSQL_PID: "express"
+    SQL_ENABLE_AGENT: "y"
+    ACCEPT_EULA: "Y"
 
-  - name: Add Mssql environment variables to root user
-    ansible.builtin.lineinfile:
-      line: "{{ item }}"
-      path: "/var/opt/mssql/.bash_profile"
-      create: true
-      owner: mssql
-      group: mssql
-    loop:
-      - 'PATH=$PATH:$HOME/bin'
-      - 'export PATH=$PATH:$HOME/bin:/opt/mssql-tools18/bin'
+- name: Add Mssql environment variables to root user
+  ansible.builtin.lineinfile:
+    line: "{{ item }}"
+    path: "/var/opt/mssql/.bash_profile"
+    create: true
+    owner: mssql
+    group: mssql
+    mode: "600"
+  loop:
+    - 'PATH=$PATH:$HOME/bin'
+    - 'export PATH=$PATH:$HOME/bin:/opt/mssql-tools18/bin'
 
-  - name: Create NFS Shared directory
-    ansible.builtin.file:
-      path: "/home/mssql/backups/{{ vm_hostname }}"
-      state: directory
+- name: Create NFS Shared directory
+  ansible.builtin.file:
+    path: "/home/mssql/backups/{{ vm_hostname }}"
+    state: directory
+    mode: "760"
 
-  - name: Set permissions
-    ansible.builtin.file:
-      path: "{{ item }}"
-      owner: mssql
-      group: mssql
-      mode: "0755"
-      recurse: yes
-    loop:
-      - "/home/mssql/files"
-      - "/home/mssql/backups/{{ vm_hostname }}"
+- name: Set permissions
+  ansible.builtin.file:
+    path: "{{ item }}"
+    owner: mssql
+    group: mssql
+    mode: "0755"
+    recurse: true
+  loop:
+    - "/home/mssql/files"
+    - "/home/mssql/backups/{{ vm_hostname }}"
 
-  - name: Create NFS exports configuration
-    ansible.builtin.lineinfile:
-      path: "/etc/exports"
-      line: "/home/mssql/backups/{{ vm_hostname }} *(rw,sync,no_root_squash,no_subtree_check)"
-      insertafter: EOF
+- name: Create NFS exports configuration
+  ansible.builtin.lineinfile:
+    path: "/etc/exports"
+    line: "/home/mssql/backups/{{ vm_hostname }} *(rw,sync,no_root_squash,no_subtree_check)"
+    insertafter: EOF
 
-  - name: Enable Services 
-    ansible.builtin.service:
-      name: "{{ item }}"
-      state: started
-      enabled: true
-    loop:
-      - rpcbind
-      - nfs-server
+- name: Enable Services
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop:
+    - rpcbind
+    - nfs-server
 
-  - name: Copy Scripts
-    ansible.builtin.copy: 
-      src: files
-      dest: /home/mssql/files
-    become: false
+- name: Copy Scripts
+  ansible.builtin.copy:
+    src: files
+    dest: /home/mssql/files
+    mode: "644"
+    owner: mssql
+    group: mssql
