@@ -5,7 +5,7 @@
   become: true
   become_user: mssql
   environment: 
-    PATH: $PATH:$HOME/bin:/opt/mssql-tools18/bin
+    PATH: /usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/var/opt/mssql/bin:/opt/mssql-tools18/bin
   roles:
     - role: database.sqlserver.sqlserver_backup
       vars:
