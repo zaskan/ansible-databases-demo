@@ -8,5 +8,5 @@ RESTORE DATABASE {{ database }}
   FROM DISK = '/home/mssql/backups/{{ backup }}'
   WITH FILE=1,
     REPLACE,
-    NORECOVERY;  
+    RECOVERY;  
 GO
