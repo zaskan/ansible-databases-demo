@@ -64,6 +64,7 @@
     dbid: "{{ dbid['content'] | b64decode }}"
   when:
     - inventory_hostname == target
+    - local is not defined
 
 - name: Template RMAN Script using provided variables for local restore
   ansible.builtin.template:
