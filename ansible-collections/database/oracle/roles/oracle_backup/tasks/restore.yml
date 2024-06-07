@@ -67,7 +67,7 @@
     - local is not defined
 
 - name: Get sequence id
-  ansible.builtin.shell: "source .bash_profile && echo 'select count(*) from  V$ARCHIVED_LOG;' | /opt/oracle/product/23c/dbhomeFree/bin/sqlplus -s / as sysdba | grep -o '[0-9]\+'"
+  ansible.builtin.shell: "source .bash_profile && echo 'select count(*) from  V$ARCHIVED_LOG;' | /opt/oracle/product/23c/dbhomeFree/bin/sqlplus -s / as sysdba | grep -o '[0-9]\\+'"
   args:
     chdir: /home/oracle
     executable: /bin/bash
