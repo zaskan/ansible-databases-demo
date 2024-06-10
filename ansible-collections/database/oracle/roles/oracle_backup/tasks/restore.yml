@@ -141,3 +141,36 @@
   changed_when: "restore_result.rc == 0"
   failed_when: "restore_result.rc != 0"
   when: inventory_hostname == target
+
+- name: Recover Database
+  ansible.builtin.shell: 'echo "RECOVER DATABASE;" | rman target /'
+    args:
+    chdir: /home/oracle
+    executable: /bin/bash
+  register: recover_result
+  changed_when: '"RMAN-06054" in recover_result.stdoutr'
+  when: 
+    - inventory_hostname == target
+    - local is not defined
+
+- name: Alter Database
+  ansible.builtin.shell: 'echo "ALTER DATABASE OPEN RESETLOGS;" | rman target /'
+    args:
+    chdir: /home/oracle
+    executable: /bin/bash
+  register: restore_result
+  changed_when: "restore_result.rc == 0"
+  failed_when: "restore_result.rc != 0"
+  when: 
+    - inventory_hostname == target
+    - local is not defined
+
+
+
+
+
+
+RECOVER DATABASE;
+ALTER DATABASE OPEN RESETLOGS;
+
+
