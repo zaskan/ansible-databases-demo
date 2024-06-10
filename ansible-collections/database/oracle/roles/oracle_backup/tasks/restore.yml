@@ -148,7 +148,7 @@
     chdir: /home/oracle
     executable: /bin/bash
   register: recover_result
-  changed_when: '"RMAN-06054" in recover_result.stdoutr'
+  changed_when: '"RMAN-06054" in recover_result.stdout'
   when: 
     - inventory_hostname == target
     - local is not defined
