@@ -154,6 +154,7 @@
   when: 
     - inventory_hostname == target
     - local is not defined
+  ignore_errors: true
 
 - name: Alter Database
   ansible.builtin.shell: "source .bash_profile && echo 'ALTER DATABASE OPEN RESETLOGS;' | /opt/oracle/product/23c/dbhomeFree/bin/rman target /"
