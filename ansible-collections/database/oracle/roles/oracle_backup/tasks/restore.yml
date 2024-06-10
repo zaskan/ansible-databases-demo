@@ -165,12 +165,3 @@
     - inventory_hostname == target
     - local is not defined
 
-
-
-
-
-
-RECOVER DATABASE;
-ALTER DATABASE OPEN RESETLOGS;
-
-
