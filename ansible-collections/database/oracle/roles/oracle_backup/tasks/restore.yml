@@ -143,7 +143,7 @@
   when: inventory_hostname == target
 
 - name: Recover Database
-  ansible.builtin.shell: "echo 'RECOVER DATABASE;' | source .bash_profile && /opt/oracle/product/23c/dbhomeFree/bin/rman target /"
+  ansible.builtin.shell: "source .bash_profile && echo 'RECOVER DATABASE;' | /opt/oracle/product/23c/dbhomeFree/bin/rman target /"
   args:
     chdir: /home/oracle
     executable: /bin/bash
@@ -154,7 +154,7 @@
     - local is not defined
 
 - name: Alter Database
-  ansible.builtin.shell: "echo 'ALTER DATABASE OPEN RESETLOGS;' | source .bash_profile && /opt/oracle/product/23c/dbhomeFree/bin/rman target /"
+  ansible.builtin.shell: "source .bash_profile && echo 'ALTER DATABASE OPEN RESETLOGS;' | /opt/oracle/product/23c/dbhomeFree/bin/rman target /"
   args:
     chdir: /home/oracle
     executable: /bin/bash
