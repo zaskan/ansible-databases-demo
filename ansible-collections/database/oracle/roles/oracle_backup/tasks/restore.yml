@@ -144,7 +144,7 @@
 
 - name: Recover Database
   ansible.builtin.shell: 'echo "RECOVER DATABASE;" | rman target /'
-    args:
+  args:
     chdir: /home/oracle
     executable: /bin/bash
   register: recover_result
@@ -155,7 +155,7 @@
 
 - name: Alter Database
   ansible.builtin.shell: 'echo "ALTER DATABASE OPEN RESETLOGS;" | rman target /'
-    args:
+  args:
     chdir: /home/oracle
     executable: /bin/bash
   register: restore_result
