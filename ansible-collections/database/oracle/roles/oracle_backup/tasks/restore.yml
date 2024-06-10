@@ -149,12 +149,11 @@
     executable: /bin/bash
   register: recover_result
   changed_when: 
-    - '"RMAN-06054" in recover_result.stdout'
-    - recover_result.stdout == 1
+    - recover_result.stdout | search("RMAN-06054")
+    - recover_result.rc == 1
   when: 
     - inventory_hostname == target
     - local is not defined
-  ignore_errors: true
 
 - name: Alter Database
   ansible.builtin.shell: "source .bash_profile && echo 'ALTER DATABASE OPEN RESETLOGS;' | /opt/oracle/product/23c/dbhomeFree/bin/rman target /"
